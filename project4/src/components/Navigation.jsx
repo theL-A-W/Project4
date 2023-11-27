@@ -8,7 +8,7 @@ import { faUser, faHome, faMagnifyingGlass, faGlobe } from '@fortawesome/free-so
 export default function Navigation (){
     return(
         <div className='navigation'>
-      <Navbar bg="light" data-bs-theme="light"fixed="bottom" position="sticky">
+      <Navbar bg="light" data-bs-theme="light" fixed="bottom" position="sticky">
         <Container className="nav">
           <Nav id="nav">
             <Nav.Link href="/"><FontAwesomeIcon id="icon" icon={faHome} size="3x" /></Nav.Link>

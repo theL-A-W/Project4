@@ -1,7 +1,7 @@
 
 export default function ProfileSettings (){
     return(
-        <div>
+        <div className="profile-settings">
             
         </div>
     )

@@ -9,24 +9,20 @@ import { CardHeader, FormControl } from 'react-bootstrap';
 
 export default function News (){
     return(
-        <div className='stock-search'>
-            <h1 id="stock-search-title">Stock Search</h1>
-            <Form className='stock-search-form'>
+        <div className='news'>
+            <h1 id="stock-search-title">News</h1>
+            <Form className='news-form'>
                 <FormControl type="input" id="stock-search-input" placeholder="search">
                 </FormControl>
                 <Button>Enter</Button>
             </Form>
-
+            <Card id="top-news-card"></Card>
             <div className='pinned-stocks'>
                 <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button>
-                <Card id="top-news-card"></Card>
                 <Card id="news-card"></Card>
                 <Card id="news-card"></Card>
                 <Card id="news-card"></Card>
                 <Card id="news-card"></Card>
-
-
-                
             </div>
         </div>
     )
