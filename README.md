@@ -13,7 +13,7 @@ Welcome to Trenz, a full-stack analytical application optimized for web first. T
 
 ## Wireframe
 
-![](./src/assets/Project4-Wireframe.png)
+![](./project4/src/assets/Project4-Wireframe.png)
 
 ## Stretch Goals
 1. Find and add Friends
