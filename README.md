@@ -1,5 +1,5 @@
 
-# Trenz - Your Personal stock analysis
+# Trenz - Your Personal Stock Analysis
 
 Welcome to Trenz, a full-stack analytical application optimized for web first. Trens allows users to customize their preffered trading type and gives them reccomendations on stock to buy based on the current trend of the stock.
 
