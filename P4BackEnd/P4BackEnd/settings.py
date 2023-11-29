@@ -71,6 +71,11 @@ REST_FRAMEWORK = {
     ...
 }
 
+#IMPLEMENT THIS IF GETTING 401 OR 500 ON POST
+# 'DEFAULT_PERMISSION_CLASSES': [
+#    'rest_framework.permissions.AllowAny',
+# ]
+
 
 
 
