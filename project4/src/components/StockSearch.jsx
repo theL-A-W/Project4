@@ -4,9 +4,28 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { CardHeader, FormControl } from 'react-bootstrap';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 
 export default function StockSearch (){
+    const [stockSearch, setStockSearch] = useState([])
+
+    useEffect(() => {
+//AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+    const searchStock = async () => {
+    const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=SONZ77OOD9744HMR`)
+        setStockSearch(response)
+        console.log(response.data)
+      }
+      searchStock()
+}, [])
+
+
+
+
+
+
     return(
         <div className='stock-search'>
             <h1 id="stock-search-title">Stock Search</h1>

@@ -14,9 +14,41 @@ function App() {
   useEffect(() => {
     // Fetch stocks from API
     
+
+//IF NEEDED GET PAID OPTION OF THIS
     // const getStock = async () => {
-    // const response = await.axios.get(`https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-01-09?apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
+    // const response = await axios.get(`https://api.polygon.io/v3/snapshot?ticker.any_of=NCLH,O:SPY250321C00380000,C:EURUSD,X:BTCUSD,I:SPX&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
+    //     setStocks(response.data.results)
+    //     console.log(response.data.results)
+    //   }
+    //   getStock()
+
+
+
+
+
+
+//Can i map over this axios call to input all 500 different ticker symbols in staggnated periods?
+//This checks prices for one day. Make separate API calls for 1 month, 3 months, 6 months, 1 year, 3 years?
+    const getStock = async () => {
+    const response = await axios.get(`https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-01-09?adjusted=true&sort=asc&limit=120&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
+        setStocks(response.data.results)
+        console.log(response.data.results[0])
+      }
+      getStock()
+
+
+
+
+
+
+
+
+//AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol
+    // const getStock = async () => {
+    // const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=SONZ77OOD9744HMR`)
     //     setStocks(response)
+    //     console.log(response.data)
     //   }
     //   getStock()
 
@@ -50,11 +82,25 @@ function App() {
 
 
 
+
+
+
+
   return (
     <div>
       <Main/>
       <Navigation/>
-
+      <div>
+        <h4>close price: </h4>
+        {/* <h4>heighest price for the day: {h}</h4>
+        <h4>lowest price for the day: {l}</h4>
+        <h4>number of transaction for the day: {n}</h4>
+        <h4>For OTC ticker?: {otc}</h4>
+        <h4>timestamp: {t}</h4>
+        <h4>trading volume: {v}</h4>
+        <h4>volume weighted average price: {vw}</h4>
+        <h4>will pull next page of data: {next_url}</h4> */}
+      </div>
     </div>
   )
 }
