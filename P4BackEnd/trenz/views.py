@@ -10,27 +10,29 @@ from .serializers import (
     StockSerializer,
 )
 
-class UserProfileView(generics.RetrieveUpdateDestroyAPIView):
+class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class FriendshipView(generics.ListCreateAPIView):
+class Friendship(generics.ListCreateAPIView):
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class MessageView(generics.ListCreateAPIView):
+class Message(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class StockView(generics.ListCreateAPIView):
+class StockDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Stock.objects.all()
+    serializer_class = StockSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+class Stock(generics.ListCreateAPIView):
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class StockDetailView(generics.RetrieveAPIView):
-    queryset = Stock.objects.all()
-    serializer_class = StockSerializer
-    permission_classes = [permissions.IsAuthenticated]
+

@@ -112,11 +112,24 @@ body{
 
 /* PROFILE SETTINGS */
 .profile-settings{
- background-color: black;
  height: 88vh;
  width: 100vw;
+ margin: 2vh 0;
+ display: grid;
+ align-items: center;
+ margin: 0 auto;
 }
-
+#profile-img-profile-home{
+  height: 20vh;
+  width: 44vw;
+  padding: 2vh;
+  box-shadow: 0px 0px 4px rgb(153, 151, 151);
+  border-radius: 50%;
+  background-image: url("https://png.pngtree.com/png-clipart/20220213/original/pngtree-avatar-bussinesman-man-profile-icon-vector-illustration-png-image_7268049.png");
+  background-position: center;
+  background-size: cover;
+  justify-self: center;
+}
 
 /* STOCK DETAILS */
 .stock-details{

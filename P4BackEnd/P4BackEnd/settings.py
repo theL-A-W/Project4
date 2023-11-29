@@ -63,12 +63,9 @@ MIDDLEWARE = [
 
 #FOR JWT AUTH
 REST_FRAMEWORK = {
-    ...
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        ...
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
-    ...
 }
 
 #IMPLEMENT THIS IF GETTING 401 OR 500 ON POST

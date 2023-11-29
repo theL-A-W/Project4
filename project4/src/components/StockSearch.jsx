@@ -11,10 +11,19 @@ import axios from 'axios'
 export default function StockSearch (){
     const [stockSearch, setStockSearch] = useState([])
 
+//     useEffect(() => {
+// //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+//     const searchStock = async () => {
+//     const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=SONZ77OOD9744HMR`)
+//         setStockSearch(response)
+//         console.log(response.data)
+//       }
+//       searchStock()
+// }, [])
     useEffect(() => {
 //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
     const searchStock = async () => {
-    const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=SONZ77OOD9744HMR`)
+    const response = await axios.get(`https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-01-09?adjusted=true&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
         setStockSearch(response)
         console.log(response.data)
       }
