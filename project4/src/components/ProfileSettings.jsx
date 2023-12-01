@@ -8,6 +8,7 @@ import { faAngleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { DropdownItem, DropdownMenu, FormControl, FormGroup, FormLabel } from 'react-bootstrap'
 
 
+
 export default function ProfileSettings (){
     const [selectedImage, setSelectedImage] = useState(null);
     const [show, setShow] = useState(false);
@@ -33,7 +34,11 @@ export default function ProfileSettings (){
 
     return(
         <div className="profile-settings">
+            <div id="buttons-in-header">
             <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="2x" /></Button>
+            <Button variant="link" id="find-friends-btn">Find Friends</Button>
+
+            </div>
             <div id="profile-img-profile-home"><Button id='edit-profile-photo' variant="primary" onClick={handleShow}><FontAwesomeIcon id="icon"  icon={faPenToSquare} size="xl"/></Button></div>
 
             <Form className='profile-form'>

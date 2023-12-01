@@ -25,7 +25,6 @@ export default function StockSearch (){
 
 
 
-
     return(
         <div className='stock-search'>
             <h1 id="stock-search-title">Stock Search</h1>

@@ -70,15 +70,15 @@ export default function StockDetails (){
       </ul> */}
             
             </Card>
-            <div>
-                <Button id="graph-view"></Button>
-                <Button id="graph-view"></Button>
-                <Button id="graph-view"></Button>
-                <Button id="graph-view"></Button>
-                <Button id="graph-view"></Button>
+            <div className="date-select-buttons">
+                <Button id="graph-view">1 Day</Button>
+                <Button id="graph-view">1 Month</Button>
+                <Button id="graph-view">3 Months</Button>
+                <Button id="graph-view">1 Year</Button>
+                <Button id="graph-view">5 Years</Button>
             </div>
             <div className='pinned-stocks'>
-                <Link to='./StockSearch'><Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button></Link>
+                <Link to='/StockSearch'><Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button></Link>
                 <Card id="stock-details-stats">
                     {/* <Card id="stock-stat" >P/E Ratio</Card>
                     <Card id="stock-stat">Dividend yeild</Card>
@@ -88,8 +88,8 @@ export default function StockDetails (){
                     <Card id="stock-stat">52 week low</Card>
                     <Card id="stock-stat">Market Cap</Card> */}
                     <Card id="stock-stat"><label id="card-label">Open Price: </label>{stockSearch.o}</Card>
-                    <Card id="stock-stat"><label id="card-label">High Price: </label>{stockSearch.h}</Card>
-                    <Card id="stock-stat"><label id="card-label">Low price: </label>{stockSearch.l}</Card>
+                    <Card id="stock-stat"><label id="card-label">Days High: </label>{stockSearch.h}</Card>
+                    <Card id="stock-stat"><label id="card-label">Days Low: </label>{stockSearch.l}</Card>
                     <Card id="stock-stat"><label id="card-label">Timestamp: </label>{stockSearch.t}</Card>
                     <Card id="stock-stat"><label id="card-label">Volume: </label>{stockSearch.v}</Card>
                     <Card id="stock-stat"><label id="card-label">Weighted Avg: </label>{stockSearch.vw}</Card>
