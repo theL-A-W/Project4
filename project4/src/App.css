@@ -114,6 +114,15 @@ body{
   grid-template-columns: auto auto;
   justify-content: center;
 }
+#carousel-caption{
+background-color: black;
+position: absolute;
+bottom: 0px;
+height: 40%;
+left:0;
+right:0;
+
+}
 
 
 /* PROFILE SETTINGS */
