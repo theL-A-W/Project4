@@ -16,12 +16,23 @@ export default function StockDetails (){
     const [stockData, setStockData] = useState([]);
 
 
+        // //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+        // useEffect(() => {
+        //     const searchStock = async () => {
+        //     const response = await axios.get(`https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-11-29?adjusted=true&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
+        //         setStockSearch(response.data.results)
+        //         console.log(response.data.results)
+        //       }
+        //       searchStock()
+        // }, [tickerSymbol])
+
         //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
         useEffect(() => {
             const searchStock = async () => {
-            const response = await axios.get(`https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-11-29?adjusted=true&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
-                setStockSearch(response.data.results)
-                console.log(response.data.results)
+               let tickerSymbol = "AAPL"
+            const response = await axios.get(`https://api.polygon.io/v2/aggs/ticker/${tickerSymbol}/range/1/day/2023-01-09/2023-01-09?adjusted=true&sort=asc&limit=120&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
+                setStockSearch(response.data.results[0])
+                console.log(response.data.results[0])
               }
               searchStock()
         }, [tickerSymbol])
@@ -42,7 +53,7 @@ export default function StockDetails (){
         <h4>trading volume: {volume}</h4>
         <h4>volume weighted average price: {vw}</h4>
         <h4>will pull next page of data: {next_url}</h4> */}
-                  <ul>
+                  {/* <ul>
         {stockData.map((stock, index) => (
           <li key={index}>
             <p>Ticker Symbol: {stock.T}</p>
@@ -56,7 +67,7 @@ export default function StockDetails (){
             <p>Timestamp: {stock.t}</p>
           </li>
         ))}
-      </ul>
+      </ul> */}
             
             </Card>
             <div>
@@ -69,14 +80,19 @@ export default function StockDetails (){
             <div className='pinned-stocks'>
                 <Link to='./StockSearch'><Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button></Link>
                 <Card id="stock-details-stats">
-                    <Card id="stock-stat" >P/E Ratio</Card>
+                    {/* <Card id="stock-stat" >P/E Ratio</Card>
                     <Card id="stock-stat">Dividend yeild</Card>
                     <Card id="stock-stat">Today's High</Card>
                     <Card id="stock-stat">Today's Low</Card>
                     <Card id="stock-stat">52 week high</Card>
                     <Card id="stock-stat">52 week low</Card>
-                    <Card id="stock-stat">Market Cap</Card>
-                    <Card id="stock-stat">Close price: </Card>
+                    <Card id="stock-stat">Market Cap</Card> */}
+                    <Card id="stock-stat"><label id="card-label">Open Price: </label>{stockSearch.o}</Card>
+                    <Card id="stock-stat"><label id="card-label">High Price: </label>{stockSearch.h}</Card>
+                    <Card id="stock-stat"><label id="card-label">Low price: </label>{stockSearch.l}</Card>
+                    <Card id="stock-stat"><label id="card-label">Timestamp: </label>{stockSearch.t}</Card>
+                    <Card id="stock-stat"><label id="card-label">Volume: </label>{stockSearch.v}</Card>
+                    <Card id="stock-stat"><label id="card-label">Weighted Avg: </label>{stockSearch.vw}</Card>
                 </Card>
             </div>
         </div>
