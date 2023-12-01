@@ -92,6 +92,7 @@ body{
   align-items: center;
   justify-content: center;
   width: 100vw;
+  padding-bottom:12vh;
 }
 #news-card{
   overflow-y: scroll;
@@ -108,6 +109,11 @@ body{
   margin: 2vh 0;
   justify-self: center;
 }
+.news-form{
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+}
 
 
 /* PROFILE SETTINGS */
@@ -119,16 +125,36 @@ body{
  align-items: center;
  margin: 0 auto;
 }
+.profile-form{
+  display: grid;
+  grid-template-columns: auto auto;
+}
 #profile-img-profile-home{
   height: 20vh;
   width: 44vw;
   padding: 2vh;
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
   border-radius: 50%;
-  background-image: url("https://png.pngtree.com/png-clipart/20220213/original/pngtree-avatar-bussinesman-man-profile-icon-vector-illustration-png-image_7268049.png");
+  background-image: url("https://w7.pngwing.com/pngs/247/564/png-transparent-computer-icons-user-profile-user-avatar-blue-heroes-electric-blue.png");
   background-position: center;
   background-size: cover;
   justify-self: center;
+}
+#form-label{
+  text-align: end;
+  margin: 1vh 3vw;
+}
+#form-group{
+  text-align: left;
+  margin: 1vh 3vw;
+}
+#edit-profile-photo{
+width: 5vw;
+display: flex;
+justify-content: center;
+background-color: transparent;
+float: inline-end;
+border: 1px solid transparent;
 }
 
 /* STOCK DETAILS */

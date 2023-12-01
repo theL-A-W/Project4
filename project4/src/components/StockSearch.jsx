@@ -6,6 +6,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { CardHeader, FormControl } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 export default function StockSearch (){
@@ -20,16 +21,6 @@ export default function StockSearch (){
 //       }
 //       searchStock()
 // }, [])
-    useEffect(() => {
-//AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
-    const searchStock = async () => {
-    const response = await axios.get(`https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-01-09?adjusted=true&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
-        setStockSearch(response)
-        console.log(response.data)
-      }
-      searchStock()
-}, [])
-
 
 
 
@@ -45,15 +36,14 @@ export default function StockSearch (){
             </Form>
 
             <div className='pinned-stocks'>
-                <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button>
-                <Card id="pinned-stock-card"></Card>
-                <Card id="pinned-stock-card"></Card>
-                <Card id="pinned-stock-card"></Card>
-                <Card id="pinned-stock-card"></Card>
-                <Card id="pinned-stock-card"></Card>
-                <Card id="pinned-stock-card"></Card>
-                <Card id="pinned-stock-card"></Card>
-                <Card id="pinned-stock-card"></Card>
+                <Link to='/StockDetails/:tickerSymbol'><Card id="pinned-stock-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
+
 
                 
             </div>

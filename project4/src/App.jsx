@@ -93,7 +93,7 @@ function App() {
       <Main/>
       <Navigation/>
       <div>
-        <h4>close price: </h4>
+        {/* <h4>close price: </h4> */}
         {/* <h4>heighest price for the day: {h}</h4>
         <h4>lowest price for the day: {l}</h4>
         <h4>number of transaction for the day: {n}</h4>

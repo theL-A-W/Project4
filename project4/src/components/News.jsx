@@ -18,7 +18,6 @@ export default function News (){
             </Form>
             <Card id="top-news-card"></Card>
             <div className='pinned-stocks'>
-                <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button>
                 <Card id="news-card"></Card>
                 <Card id="news-card"></Card>
                 <Card id="news-card"></Card>

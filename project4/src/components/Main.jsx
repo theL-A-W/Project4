@@ -3,6 +3,7 @@ import Home from './Home'
 import ProfileSettings from './ProfileSettings'
 import News from './News'
 import StockSearch from './StockSearch'
+import StockDetails from './StockDetails'
 
 
 export default function Main (){
@@ -13,6 +14,9 @@ export default function Main (){
                 <Route exact path = "/News" element={<News/>}/>
                 <Route exact path = "/StockSearch" element={<StockSearch/>}/>
                 <Route exact path = "/ProfileSettings" element={<ProfileSettings/>}/>
+                {/* <Route exact path = "/StockDetails" element={<StockDetails/>}/> */}
+                <Route exact path="/StockDetails/:tickerSymbol" element={<StockDetails />}/>
+                
             </Routes>
         </div>
     )
