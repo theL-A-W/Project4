@@ -6,15 +6,19 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { DropdownItem, DropdownMenu, FormControl, FormGroup, FormLabel } from 'react-bootstrap'
+import FindFriends from './FindFriends';
 
 
 
 export default function ProfileSettings (){
     const [selectedImage, setSelectedImage] = useState(null);
     const [show, setShow] = useState(false);
+    const [showFriends, setShowFriends] = useState(false);
+    
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleShowFriends = () => setShowFriends(true);
 
     const handleImageChange = (e) => {
         // Handle the selected image and update the state
@@ -36,8 +40,8 @@ export default function ProfileSettings (){
         <div className="profile-settings">
             <div id="buttons-in-header">
             <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="2x" /></Button>
-            <Button variant="link" id="find-friends-btn">Find Friends</Button>
-
+            <Button variant="link" id="find-friends-btn" onClick={handleShowFriends}>Find Friends</Button>
+            <FindFriends showFriends= {showFriends}/>
             </div>
             <div id="profile-img-profile-home"><Button id='edit-profile-photo' variant="primary" onClick={handleShow}><FontAwesomeIcon id="icon"  icon={faPenToSquare} size="xl"/></Button></div>
 

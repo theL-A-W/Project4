@@ -5,19 +5,15 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
 export default function FindFriends (){
-    const [show, setShow] = useState(false);
+    const [showFriends, setShowFriends] = useState();
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleCloseFriends = () => setShowFriends(false);
+    const handleShowFriends = () => setShowFriends(true);
 
 
     return(
         <div>
-      <Button variant="primary" onClick={handleShow} className="me-2">
-        {name}
-      </Button>
-      <Button variant="link" id="find-friends-btn">Find Friends</Button>
-      <Offcanvas show={show} onHide={handleClose} {...props}>
+      <Offcanvas show={showFriends} onHide={handleCloseFriends}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Offcanvas</Offcanvas.Title>
         </Offcanvas.Header>
@@ -29,14 +25,6 @@ export default function FindFriends (){
         </div>
     )
 }
-function OffCanvas() {
-    return (
-      <>
-        {['start', 'end', 'top', 'bottom'].map((placement, idx) => (
-          <OffCanvasExample key={idx} placement={placement} name={placement} />
-        ))}
-      </>
-    );
-  }
+
   
   
