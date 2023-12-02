@@ -10,19 +10,12 @@ import finnhub from 'finnhub'
 
 function App() {
   const [stocks, setStocks] = useState([])
+  const [authenticated, toggleAuthenticated] = useState(false)
+const [user, setUser] = useState(null)
 
   useEffect(() => {
     // Fetch stocks from API
     
-
-//IF NEEDED GET PAID OPTION OF THIS
-    // const getStock = async () => {
-    // const response = await axios.get(`https://api.polygon.io/v3/snapshot?ticker.any_of=NCLH,O:SPY250321C00380000,C:EURUSD,X:BTCUSD,I:SPX&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
-    //     setStocks(response.data.results)
-    //     console.log(response.data.results)
-    //   }
-    //   getStock()
-
 
 
 

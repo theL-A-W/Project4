@@ -1,10 +1,15 @@
+import PinnedStocks from './PinnedStocks'
+import Messages from './Messages'
 
 
 export default function Home (){
     return (
-        <div className="home">
-            <h1>Welcome</h1>
-            <h2>This is the home</h2>
+        <div className='home'>
+            <img id='logo' src='./src/assets/Trenz-logo.png' ></img>
+            <Messages/>
+            <div className="home-body">
+                <PinnedStocks/>
+            </div>
         </div>
 )
 }

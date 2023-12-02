@@ -6,14 +6,6 @@
 body{
   background-color: white;
 }
-.home{
-  height: 91vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: scroll;
-}
 #icon{
   color: navy;
 }
@@ -25,16 +17,38 @@ body{
 }
 
 
+
+/* HOME */
+.home{
+  width: 100%;
+}
+.home-body{
+  height: 91vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+#logo{
+  width: 100%;
+  clip: rect(0px, 10vh);
+  box-shadow: 0px 0px 4px rgb(153, 151, 151);
+}
+
+
+
 /* NAVIGATION */
 .nav{
   background-color: white;
   padding: 5%;
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
-  position: sticky;
   bottom: 0;
 }
 #nav{
-  display: flex;
+display: flex;
+}
+#icon{
   justify-content: space-around;
 }
 
@@ -43,15 +57,17 @@ body{
 /* PINNED STOCKS PAGE */
 .pinned-stocks{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto;
   justify-content: center;
   align-items: center;
+  margin-top: 230vh;
+  margin-bottom: 30vh;
 }
 #pinned-stock-card{
   overflow-y: scroll;
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
-  height: 20vh;
-  width: 35vw;
+  height: 30vh;
+  width: 84vw;
   margin: 2vh;
 }
 #profile-img{
@@ -62,6 +78,17 @@ body{
   background-image: url("https://png.pngtree.com/png-clipart/20220213/original/pngtree-avatar-bussinesman-man-profile-icon-vector-illustration-png-image_7268049.png");
   background-position: center;
   background-size: cover;
+}
+#profile-img-card{
+  width: fit-content;
+  border-color: transparent;
+  justify-self: center;
+
+}
+#header-card{
+  border-color: transparent;
+  justify-content: center;
+ 
 }
 
 
@@ -128,7 +155,7 @@ padding: 1vh 2vw 1vh 2vw;
 #news-card{
   overflow-y: scroll;
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
-  height: 20vh;
+  height: 25vh;
   width: 40vw;
   margin: 2vh;
   justify-self: center;
@@ -219,4 +246,11 @@ border: 1px solid transparent;
 }
 .date-select-buttons{
   margin: 1vh 1vw 2vh 1vw;
+}
+
+/* MESSAGES */
+#message-icon{
+  background-color: transparent;
+  border-color: transparent;
+  float: right;
 }

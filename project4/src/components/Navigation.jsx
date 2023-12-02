@@ -11,10 +11,10 @@ export default function Navigation (){
       <Navbar bg="light" data-bs-theme="light" fixed="bottom" position="sticky">
         <Container className="nav">
           <Nav id="nav">
-            <Nav.Link href="/"><FontAwesomeIcon id="icon" icon={faHome} size="3x" /></Nav.Link>
-            <Nav.Link href="/StockSearch"><FontAwesomeIcon id="icon"  icon={faMagnifyingGlass} size="3x" /></Nav.Link>
-            <Nav.Link href="/News"><FontAwesomeIcon id="icon"  icon={faGlobe} size="3x" /></Nav.Link>
-            <Nav.Link href="/ProfileSettings"><FontAwesomeIcon id="icon"  icon={faUser} size="3x"/></Nav.Link>
+            <Nav.Link href="/" id="icon"><FontAwesomeIcon  icon={faHome} size="3x" /></Nav.Link>
+            <Nav.Link href="/StockSearch" id="icon" ><FontAwesomeIcon icon={faMagnifyingGlass} size="3x" /></Nav.Link>
+            <Nav.Link href="/News"  id="icon"><FontAwesomeIcon icon={faGlobe} size="3x" /></Nav.Link>
+            <Nav.Link href="/ProfileSettings"  id="icon"><FontAwesomeIcon icon={faUser} size="3x"/></Nav.Link>
           </Nav>
         </Container>
       </Navbar>

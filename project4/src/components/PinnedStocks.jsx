@@ -5,14 +5,14 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { CardHeader } from 'react-bootstrap';
 
 
+
 export default function PinnedStocks (){
     return(
         <div className='pinned-stocks'>
-            <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button>
-            <Card>
+            <Card id='profile-img-card'>
                 <div id="profile-img"></div>
             </Card>
-            <Card>
+            <Card id="header-card">
                 <div id="profile-name">John Doe</div>
                 <h3>Pinned Stocks</h3>
             </Card>
