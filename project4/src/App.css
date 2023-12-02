@@ -94,14 +94,6 @@ body{
   width: 100vw;
   padding-bottom:12vh;
 }
-#news-card{
-  overflow-y: scroll;
-  box-shadow: 0px 0px 4px rgb(153, 151, 151);
-  height: 20vh;
-  width: 35vw;
-  margin: 2vh;
-  justify-self: center;
-}
 #top-news-card{
   /* box-shadow: 0px 0px 4px rgb(153, 151, 151); */
   border: 1px solid transparent;
@@ -124,6 +116,22 @@ left:0;
 right:0;
 overflow-y: hidden;
 padding: 1vh 2vw 1vh 2vw;
+}
+
+
+
+/* NEWS GRID */
+.newsGrid{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+#news-card{
+  overflow-y: scroll;
+  box-shadow: 0px 0px 4px rgb(153, 151, 151);
+  height: 20vh;
+  width: 40vw;
+  margin: 2vh;
+  justify-self: center;
 }
 
 
