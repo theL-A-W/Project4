@@ -40,7 +40,7 @@ export default function NewsGrid() {
     <div className='newsGrid'>
 {/* NEWS CARDS GRID */}
     {newsData.map((news) => (
-        <div className='pinned-stocks' key={news.id}>
+        <div className='news-cards' key={news.id}>
           <Link to={news.url}>
             <Card id='news-card'>
               {news.urlToImage ? (
@@ -48,7 +48,7 @@ export default function NewsGrid() {
               ) : (
                 <Card.Img
                   variant='top'
-                  className='event-image'
+                  className='news-image'
                   src='https://img.freepik.com/free-vector/global-digital-earth-network-connection-technology-background_1017-23328.jpg'
                   alt='Default Image'
                 />

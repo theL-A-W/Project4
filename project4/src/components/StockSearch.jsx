@@ -33,15 +33,14 @@ export default function StockSearch (){
                 </FormControl>
                 <Button>Enter</Button>
             </Form>
-
-            <div className='pinned-stocks'>
-                <Link to='/StockDetails/:tickerSymbol'><Card id="pinned-stock-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="pinned-stock-card"></Card></Link>
+            <div className='search-stocks'>
+                <Link to='/StockDetails/:tickerSymbol'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
 
 
                 
