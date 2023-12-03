@@ -12,7 +12,7 @@ import SignIn from './components/SignIn'
 function App() {
   const [stocks, setStocks] = useState([])
   const [authenticated, toggleAuthenticated] = useState(false)
-const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     // Fetch stocks from API
