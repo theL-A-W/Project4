@@ -202,7 +202,6 @@ padding: 1vh 2vw 1vh 2vw;
  align-items: center;
  margin: 0 auto;
 }
-
 #find-friends-btn{
   background-color: rgb(20, 95, 234);
   color: white;
@@ -212,7 +211,6 @@ padding: 1vh 2vw 1vh 2vw;
   top: -8vh;
   margin-right: 3vw;
 }
-
 .profile-form{
   display: grid;
   grid-template-columns: auto auto;
@@ -244,6 +242,9 @@ background-color: transparent;
 float: inline-end;
 border: 1px solid transparent;
 }
+
+
+
 
 /* STOCK DETAILS */
 .stock-details{

@@ -77,7 +77,7 @@ export default function StockDetails (){
                 <Button id="graph-view">1 Year</Button>
                 <Button id="graph-view">5 Years</Button>
             </div>
-            <div className='pinned-stocks'>
+            <div className='stock-details'>
                 <Link to='/StockSearch'><Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="3x" /></Button></Link>
                 <Card id="stock-details-stats">
                     {/* <Card id="stock-stat" >P/E Ratio</Card>

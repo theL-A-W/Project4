@@ -13,15 +13,29 @@ export default function FindFriends (){
 
     return(
         <div>
-      <Offcanvas show={showFriends} onHide={handleCloseFriends}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
-        </Offcanvas.Body>
-      </Offcanvas>
+          <Button variant="link" id="find-friends-btn" onClick={handleShowFriends}>Find Friends</Button>
+          <Offcanvas className="friends-offcanvas" show={showFriends} onHide={handleCloseFriends}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title id="friends-list-title">Find User:</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Header className="search-friends">
+                    {/* FRIEND SEARCH */}
+                    <input placeholder="search friends" id="search-friends"></input>
+                    <button>Search</button>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <ul className="list-of-friends">
+                        {/* {userProfile.map(user => (
+                            <li key={user.id} className="friend-item">
+                                {user.name}
+                                <button id="delete-friend" onClick={() => handleDeleteFriend(user.id)}>
+                                    <FontAwesomeIcon icon={faDeleteLeft} size="lg" style={{ color: "#bb111a" }} />
+                                </button>
+                            </li>
+                        ))} */}
+                    </ul>
+                </Offcanvas.Body>
+            </Offcanvas>
         </div>
     )
 }

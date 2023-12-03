@@ -40,7 +40,6 @@ export default function ProfileSettings (){
         <div className="profile-settings">
             <div id="buttons-in-header">
             <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="2x" /></Button>
-            <Button variant="link" id="find-friends-btn" onClick={handleShowFriends}>Find Friends</Button>
             <FindFriends showFriends= {showFriends}/>
             </div>
             <div id="profile-img-profile-home"><Button id='edit-profile-photo' variant="primary" onClick={handleShow}><FontAwesomeIcon id="icon"  icon={faPenToSquare} size="xl"/></Button></div>

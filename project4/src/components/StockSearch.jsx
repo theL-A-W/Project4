@@ -36,14 +36,14 @@ export default function StockSearch (){
 
 
 //THIS AXIOS CALL GETS ALL 10000 STOCKS WITH DETAILS
-            useEffect(() => {
-            const getStock = async () => {
-            const response = await axios.get(`https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-11-29?adjusted=true&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
-                setStockSearch(response.data.results)
-                console.log(response.data.results)
-              }
-              getStock()
-        }, )
+        //     useEffect(() => {
+        //     const getStock = async () => {
+        //     const response = await axios.get(`https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-11-29?adjusted=true&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
+        //         setStockSearch(response.data.results[0])
+        //         console.log(response.data.results[0])
+        //       }
+        //       getStock()
+        // }, )
 
 
     return(
@@ -55,13 +55,13 @@ export default function StockSearch (){
                 <Button>Enter</Button>
             </Form>
             <div className='search-stocks'>
-                {/* <Link to='/StockDetails/:tickerSymbol'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails/:tickerSymbol'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link> */}
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
 
 
                     {stockSearch.map((stock) => (
