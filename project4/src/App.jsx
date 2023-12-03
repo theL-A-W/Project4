@@ -7,6 +7,7 @@ import Main from './components/Main'
 import axios from 'axios'
 // const finnhub = require('finnhub')
 import finnhub from 'finnhub'
+import SignIn from './components/SignIn'
 
 function App() {
   const [stocks, setStocks] = useState([])
@@ -83,6 +84,10 @@ const [user, setUser] = useState(null)
 
   return (
     <div>
+      <SignIn
+  setUser={setUser}
+  toggleAuthenticated={toggleAuthenticated}
+/>
       <Main/>
       <Navigation/>
       <div>
