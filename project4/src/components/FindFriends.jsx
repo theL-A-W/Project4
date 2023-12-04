@@ -14,7 +14,7 @@ export default function FindFriends (){
     return(
         <div>
           <Button variant="link" id="find-friends-btn" onClick={handleShowFriends}>Find Friends</Button>
-          <Offcanvas className="friends-offcanvas" show={showFriends} onHide={handleCloseFriends}>
+          <Offcanvas className="friends-offcanvas" style={{ width: '100%' }} show={showFriends} onHide={handleCloseFriends}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title id="friends-list-title">Find User:</Offcanvas.Title>
                 </Offcanvas.Header>
