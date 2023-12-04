@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 
 # TAKE OUT THIS LINE
@@ -16,7 +17,7 @@ from .serializers import (
 )
 
 
-
+@csrf_exempt
 def login_view(request):
     # Your login logic here
     return HttpResponse("Login view")

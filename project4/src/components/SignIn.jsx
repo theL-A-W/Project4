@@ -15,29 +15,35 @@ export default function SignIn(props){
         setFormValues({ ...formValues, [e.target.name]: e.target.value })
       }
     
-    //   const handleClose = () => {
-    //     if ( props.user && props.authenticted ) {
-    //          setShow(false);
-    //   } else{
-    //     <Toast><ToastBody>Oops... You haven't signed in!</ToastBody></Toast>
-
-    //     console.log("You must sign-in")
-    //   }
-    // }
+      const handleClose = () => {
+        if ( props.user && props.authenticated ) {
+             setShow(false);
+             
+      } else{
+        console.log("You must sign-in")
+        alert('You must sign in!')
+      }
+    }
 
 
 
 //USE THIS HANDLE CLOSE FOR WORKING ON APP ONLY... FOR IMPLEMENTATION USE HANDLE SUBMIT ABOVE
-      const handleClose = () => setShow(false);
+    //   const handleClose = () => setShow(false);
       const handleShow = () => setShow(true);
 
       const handleSubmit = async (e) => {
         e.preventDefault()
+        try {
         const payload = await SignInUser(formValues)
+        console.log("Logged in successfully:", payload);
         setFormValues({ email: '', password: '' })
         props.setUser(payload)
         props.toggleAuthenticated(true)
         navigate('/')
+      }
+      catch(error) {
+        console.log("Error during login", error)
+      }
       }
 
     return(
