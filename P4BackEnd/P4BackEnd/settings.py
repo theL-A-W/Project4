@@ -25,12 +25,20 @@ SECRET_KEY = 'django-insecure-x$=-@yl950&bo9hkl&5qmvt1aga)tx&a7ckhhcg9+rr(yuqr3u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "http://localhost:5173",
+    "localhost"
+]
 
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     # Add other allowed origins as needed
+]
+CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173"
 ]
 
 # Application definition
@@ -45,6 +53,7 @@ INSTALLED_APPS = [
     'trenz',
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -71,7 +80,10 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+        'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
 }
 
 #IMPLEMENT THIS IF GETTING 401 OR 500 ON POST

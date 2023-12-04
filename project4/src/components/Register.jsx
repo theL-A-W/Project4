@@ -1,8 +1,10 @@
 import { useState} from 'react'
-import { RegisterUser } from '../services/Auth'
+import { RegisterUser } from './services/Auth'
 import { useNavigate } from 'react-router-dom'
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap'
 
 export default function Register(){
+  const [show, setShow] = useState();
     let navigate = useNavigate()
     const [formValues, setFormValues] = useState({
         name: '',
@@ -30,12 +32,21 @@ export default function Register(){
           })
           navigate('/signin')
       }
-    
+      const handleShow = () => setShow(true);
+      const handleClose = () => setShow(false);
 
     return(
         <div className="signin col">
+          <Button id='register-button' onClick={handleShow}>Sign-Up</Button>
+          <Modal            
+          className='register-modal'
+            show={show}
+            backdrop="static"
+            keyboard={false}>
+              <ModalHeader className='sign-in-modal-header' closeButton></ModalHeader>
         <div className="card-overlay centered">
           <form className="col" onSubmit={handleSubmit}>
+          <ModalBody className='sign-in-modal-body'>
             <div className="input-wrapper">
               <label htmlFor="name">Name</label>
               <input
@@ -79,6 +90,9 @@ export default function Register(){
                 required
               />
             </div>
+            </ModalBody>
+            <ModalFooter>
+            <Button id='close-button' onClick={handleClose}>Close</Button>
             <button
               disabled={
                 !formValues.email ||
@@ -86,10 +100,14 @@ export default function Register(){
                   formValues.confirmPassword === formValues.password)
               }
             >
-              Sign In
+              Create User
             </button>
+            </ModalFooter>
           </form>
+          
         </div>
+        
+        </Modal>
       </div>
     )
 }

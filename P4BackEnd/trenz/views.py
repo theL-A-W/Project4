@@ -1,5 +1,10 @@
 from django.shortcuts import render
 
+
+# TAKE OUT THIS LINE
+from django.http import HttpResponse
+
+
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from .models import UserProfile, Friendship, Message, Stock
@@ -9,6 +14,12 @@ from .serializers import (
     MessageSerializer,
     StockSerializer,
 )
+
+
+
+def login_view(request):
+    # Your login logic here
+    return HttpResponse("Login view")
 
 class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfile.objects.all()

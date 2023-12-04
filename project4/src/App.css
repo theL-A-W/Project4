@@ -35,13 +35,29 @@ body{
   align-items: center;
   padding: 30vw 10%;
 }
-#email-input, #password-input{
+/* #email-input, #password-input{
 width: 60vw;
-}
+} */
 #email-input{
   margin-bottom: 2vh;
 }
 
+
+
+
+/* REGISTER */
+.register-modal{
+  display: flex;
+  width: 100%;
+  background-color: rgb(251, 248, 248);
+  justify-content: center;
+}
+#register-button{
+  background-color: transparent;
+  border-color: transparent;
+  text-decoration: underline;
+  color: rgb(103, 137, 186);
+}
 
 
 

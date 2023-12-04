@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
+from .views import login_view
 
 
 urlpatterns = [
@@ -14,5 +15,6 @@ urlpatterns = [
     path('stock/', views.Stock.as_view(), name='stock-list-create'),
     path('stock/<int:pk>/', views.StockDetail.as_view(), name='stock-detail'),
 
-
+    # TAKE OUT THIS LINE
+    path('auth/login', login_view, name='login'),
 ]

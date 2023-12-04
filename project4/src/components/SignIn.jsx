@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, ModalBody, ModalFooter, ModalHeader, Toast, ToastBody } from 'react-bootstrap';
-// import Register from './Register'
+import Register from './Register'
 
 export default function SignIn(props){
     const [show, setShow] = useState(true)
@@ -86,7 +86,7 @@ export default function SignIn(props){
 
                         <div>
                             <p>Don't have an account?</p>
-                            {/* <Register/> */}
+                            <Register/>
                             </div>
                     </ModalBody>
                     <ModalFooter>
