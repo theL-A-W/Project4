@@ -12,15 +12,16 @@ import { Link } from 'react-router-dom'
 export default function StockSearch (){
     const [stockSearch, setStockSearch] = useState([])
 
-//     useEffect(() => {
-// //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
-//     const searchStock = async () => {
-//     const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=SONZ77OOD9744HMR`)
-//         setStockSearch(response)
-//         console.log(response.data)
-//       }
-//       searchStock()
-// }, [])
+    useEffect(() => {
+//AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+    const searchStock = async () => {
+        let searchInput = 'BA'
+    const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=SONZ77OOD9744HMR`)
+        setStockSearch(response.data.bestMatches)
+        console.log(response.data.bestMatches)
+      }
+      searchStock()
+}, [])
 
 
 
@@ -46,6 +47,11 @@ export default function StockSearch (){
         // }, )
 
 
+
+
+
+
+
     return(
         <div className='stock-search'>
             <h1 id="stock-search-title">Stock Search</h1>
@@ -55,22 +61,24 @@ export default function StockSearch (){
                 <Button>Enter</Button>
             </Form>
             <div className='search-stocks'>
-                <Link to='/StockDetails/:tickerSymbol'><Card id="stock-search-card"></Card></Link>
+                {/* <Link to='/StockDetails/:tickerSymbol'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
                 <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
-                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link>
+                <Link to='/StockDetails'><Card id="stock-search-card"></Card></Link> */}
 
 
                     {stockSearch.map((stock) => (
-            <div className='search-stocks' key={stockSearch.id}>
-            <Link to={'./Stock Details'}>
-                <Card id='news-card'>
+            <div className='search-stocks' key={stock.id}>
+            <Link to={'/Stock Details/:tickerSymbol'}>
+                <Card id='stock-search-card'>
                 <Card.Body>
-                    <Card.Title>{stockSearch.c}</Card.Title>
-                    <Card.Text>{stockSearch.h}</Card.Text>
+                    <label>Symbol: </label>
+                    <Card.Title><strong>{stock['1. symbol']}</strong></Card.Title>
+                    <label>Namel: </label>
+                    <Card.Text><strong>{stock['2. name']}</strong></Card.Text>
                 </Card.Body>
                 </Card>
             </Link>

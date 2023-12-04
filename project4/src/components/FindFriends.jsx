@@ -1,14 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import axios from 'axios'
 
 
 
 export default function FindFriends (){
     const [showFriends, setShowFriends] = useState();
+    const [user, setUser] = useState()
 
     const handleCloseFriends = () => setShowFriends(false);
     const handleShowFriends = () => setShowFriends(true);
+
+//AXIOS CALL TO BACKEND
+        // useEffect(() => {
+        //     const searchUser = async () => {
+        //     const response = await axios.get(`http://localhost:8000/user-profile/2`)
+        //         setUser(response)
+        //         console.log(response)
+        //       }
+        //       searchUser()
+        // }, [])
 
 
     return(
