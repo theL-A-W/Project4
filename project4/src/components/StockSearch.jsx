@@ -12,18 +12,152 @@ import { Link } from 'react-router-dom'
 export default function StockSearch (){
     const [stockSearch, setStockSearch] = useState([])
 
+//     useEffect(() => {
+// //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+//     const searchStock = async () => {
+//         let searchInput = 'BA'
+//     const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=SONZ77OOD9744HMR`)
+//         setStockSearch(response.data.bestMatches)
+//         console.log(response.data.bestMatches)
+//       }
+//       if(stockSearch() === undefined){
+//         const searchStock2 = async () => {
+//             let searchInput = 'BA'
+//         const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=DPS4UKN7S2MUS5QH`)
+//             setStockSearch(response.data.bestMatches)
+//             console.log(response.data.bestMatches)
+//             }
+//             searchStock2()
+//       } else
+//       searchStock()
+// }, [])
+
+
+
+
+
+
+
+
+
+
+//     useEffect(() => {
+// //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+//     const searchStock = async () => {
+//         let searchInput = 'BA'
+//     const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=SONZ77OOD9744HMR`)
+//         setStockSearch(response.data.bestMatches)
+//         console.log(response.data.bestMatches)
+//       }
+
+//       if(stockSearch === 'undefined' ){
+//         useEffect(() => {
+//         const searchStock2 = async () => {
+//             let searchInput = 'BA'
+//         const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=DPS4UKN7S2MUS5QH`)
+//             setStockSearch(response.data.bestMatches)
+//             console.log(response.data.bestMatches)
+//             }    
+//             searchStock2()
+//         }, [])
+//             } else 
+//             searchStock()
+//         }, [])
+
+
+
+
     useEffect(() => {
 //AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
     const searchStock = async () => {
         let searchInput = 'BA'
-    const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=SONZ77OOD9744HMR`)
-        setStockSearch(response.data.bestMatches)
-        console.log(response.data.bestMatches)
+        let apikey = 'SONZ77OOD9744HMR'
+    const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=${apikey}`)
+    setStockSearch(response.data.bestMatches)
+    console.log(response.data.bestMatches)
+    
+    if(response === 'undefined'){
+        let apikey = 'DPS4UKN7S2MUS5QH'
+    const response2 = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=${apikey}`)
+        setStockSearch(response2.data.bestMatches)
+        console.log(response2.data.bestMatches)
       }
-      searchStock()
-}, [])
+            searchStock()
+    }
+        }, [])
 
 
+
+// useEffect(() => {
+//     // AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+//     const searchStock = async () => {
+//       let searchInput = 'BA';
+//       const response = await axios.get(
+//         `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=SONZ77OOD9744HMR`
+//       );
+//       if (response.data.bestMatches !== undefined) {
+//         setStockSearch(response.data.bestMatches);
+//         console.log(response.data.bestMatches);
+//       } else {
+//         const searchStock2 = async () => {
+//             let searchInput = 'BA';
+//             const response = await axios.get(
+//               `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=DPS4UKN7S2MUS5QH`
+//             );
+//             if (response.data.bestMatches !== undefined) {
+//               setStockSearch(response.data.bestMatches);
+//               console.log(response.data.bestMatches);
+//             } else {
+//               console.error('No data found for searchStock2');
+//             }
+//           };
+//         searchStock2();
+//       }
+//     };
+
+
+
+//     searchStock();
+//   }, []); 
+
+
+
+
+
+
+
+
+// useEffect(() => {
+//     // AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol and company name
+//     const searchStock = async () => {
+//       let searchInput = 'B'
+//       try {
+//         const response = await axios.get(
+//           `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=SONZ77OOD9744HMR`
+//         )
+//         setStockSearch(response.data.bestMatches || [])
+//         console.log(response.data.bestMatches)
+//       } catch (undefined) {
+//         console.error('Error fetching data:', error)
+//         // If there's an error, execute the second axios call
+//         searchStock2()
+//       }
+//     }
+
+//     const searchStock2 = async () => {
+//       try {
+//         const response = await axios.get(
+//           'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchInput}&apikey=DPS4UKN7S2MUS5QH'
+//         )
+//         // Handle the response from the second call
+//         console.log('Second axios call:', response.data)
+//       } catch (error) {
+//         console.error('Error fetching data from second call:', error)
+//       }
+//     }
+
+//     searchStock()
+//   }, [])
 
 //THIS AXIOS CALL GETS INFO FOR A SINGLE STOCK THAT IS INPUTED IN THE CALL
     // useEffect(() => {

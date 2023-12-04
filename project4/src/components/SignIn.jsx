@@ -3,7 +3,8 @@ import { SignInUser } from './services/Auth'
 import { useNavigate } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ModalBody, ModalFooter, ModalHeader, Toast, ToastBody } from 'react-bootstrap';
+import { Card, ModalBody, ModalFooter, ModalHeader, Toast, ToastBody } from 'react-bootstrap';
+// import Register from './Register'
 
 export default function SignIn(props){
     const [show, setShow] = useState(true)
@@ -53,20 +54,28 @@ export default function SignIn(props){
                     <form className="col" onSubmit={handleSubmit}>
                     <ModalBody className='sign-in-modal-body'>
                         <div className="input-wrapper">
-                            <label htmlFor="email" id="email-label">Email</label>
+                            <div>
+                                <label htmlFor="email" id="email-label">Username:</label>
+                            </div>
                             <input
                             id="email-input"
                             onChange={handleChange}
                             name="email"
-                            type="email"
-                            placeholder="example@example.com"
+                            // type="email"
+                            type="input"
+                            // placeholder="example@example.com"
+                            placeholder="example123"
                             value={formValues.email}
                             required
                             />
                         </div>
+
                         <div className="input-wrapper">
-                            <label htmlFor="password">Password</label>
+                            <div>
+                                <label htmlFor="password">Password:</label>
+                            </div>
                             <input
+                            id="password-input"
                             onChange={handleChange}
                             type="password"
                             name="password"
@@ -74,6 +83,11 @@ export default function SignIn(props){
                             required
                             />
                         </div>
+
+                        <div>
+                            <p>Don't have an account?</p>
+                            {/* <Register/> */}
+                            </div>
                     </ModalBody>
                     <ModalFooter>
                     <button disabled={!formValues.email || !formValues.password}>

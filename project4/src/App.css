@@ -29,13 +29,19 @@ body{
   padding: 4vh;
 }
 .sign-in-modal-body{
-  display: flex;
+  display: grid;
+  grid-template-columns: auto;
   justify-content: center;
+  align-items: center;
   padding: 30vw 10%;
 }
-#email-input{
-  justify-self: center;
+#email-input, #password-input{
+width: 60vw;
 }
+#email-input{
+  margin-bottom: 2vh;
+}
+
 
 
 
@@ -294,4 +300,12 @@ border: 1px solid transparent;
   background-color: transparent;
   border-color: transparent;
   float: right;
+}
+
+
+/* MEDIA QUERIES */
+@media (min-width: 1024px) {
+  #icon{
+    margin-left: 12.5vw;
+    }
 }
