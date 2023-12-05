@@ -1,24 +1,23 @@
 import React, { createContext, useContext, useState } from 'react';
 
-// Define initial state
-const initialUserState = {
-  user: '',
-  token: '',
-};
-
-// Create the context
 const UserContext = createContext();
 
-// Create a provider component
 export const UserProvider = ({ children }) => {
-  const [userState, setUserState] = useState(initialUserState);
+  const [userState, setUserState] = useState({
+    user: '',
+    token: '',
+  });
 
   const setUser = (username, token) => {
     setUserState({ username, token });
   };
 
+
   const logout = () => {
-    setUserState(initialUserState);
+    setUserState({
+      user: '',
+      token: '',
+    });
   };
 
   return (
@@ -28,7 +27,6 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Create a hook to access the context
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
