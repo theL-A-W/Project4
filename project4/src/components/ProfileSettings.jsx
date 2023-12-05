@@ -56,7 +56,7 @@ export default function ProfileSettings (){
                 <Form.Control as="textarea" rows={3} />
                 </FormGroup>
             </Form>
-            <Button id="done">Done</Button>
+            <Button id="update">Update</Button>
 
         <Modal
             show={show}

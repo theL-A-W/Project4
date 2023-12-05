@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { SignInUser } from './services/Auth'
-import { useNavigate } from 'react-router-dom'
+
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, ModalBody, ModalFooter, ModalHeader, Toast, ToastBody } from 'react-bootstrap';
@@ -8,13 +8,11 @@ import Register from './Register'
 
 export default function SignIn(props){
     const [show, setShow] = useState(true)
-    let navigate = useNavigate()
     const [formValues, setFormValues] = useState({ username: '', password: '' })
 
     const handleClose = () => {
-        if (props.user ) {
              setShow(false);
-        }}
+        }
     const handleChange = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value })
       }
@@ -34,10 +32,10 @@ export default function SignIn(props){
         try {
         const payload = await SignInUser(formValues)
         console.log("Logged in successfully:", payload);
-        handleClose()
         setFormValues({ username: '', password: '' })
         props.setUser(payload)
         props.toggleAuthenticated(true)
+        handleClose()
       }
       catch(error) {
         console.log("Error during login", error)
@@ -49,7 +47,7 @@ export default function SignIn(props){
             <Modal 
             className='sign-in-modal'
             show={show}
-            onHide={handleClose}
+            // onHide={handleClose}
             backdrop="static"
             keyboard={false}
             >
