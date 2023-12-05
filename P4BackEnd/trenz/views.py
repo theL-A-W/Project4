@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 # TAKE OUT THIS LINE
 from django.http import HttpResponse
 import json
@@ -43,9 +44,9 @@ def login_view(request):
             # Assuming UserProfile has an email field
             user_data = {'username': user.username, 'email': user.email}
 
-            token = 'generatedToken'
+            token, created = Token.objects.get_or_create(user=user)
 
-            return JsonResponse({'user': user_data, 'token': token})
+            return JsonResponse({'user': user_data, 'token': token.key})
         else:
             return JsonResponse({'error': 'Invalid credentials'}, status=401)
 

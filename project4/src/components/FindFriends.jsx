@@ -26,6 +26,9 @@ export default function FindFriends (){
         fetchUsers();
         setShowFriends(true);
     };
+    const handleAddFriends = () => {
+        
+    }
 
     return(
         <div>
@@ -44,7 +47,7 @@ export default function FindFriends (){
                         {users.map(user => (
                             <li key={user.username} className="friend-item">
                                 {user.username}
-                                <button id="add-friend" onClick={() => handleDeleteFriend(user.id)}>
+                                <button id="add-friend" onClick={() => handleAddFriend(user.id)}>
                                     {/* <FontAwesomeIcon icon={faAdd} size="lg" style={{ color: "white" }} /> */}
                                     <p id="add-icon"><strong>+</strong></p>
                                 </button>
