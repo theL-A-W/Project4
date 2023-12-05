@@ -43,10 +43,10 @@ export default function FindFriends (){
                     <ul className="list-of-friends">
                         {users.map(user => (
                             <li key={user.username} className="friend-item">
-                                {user.name}
+                                {user.username}
                                 <button id="add-friend" onClick={() => handleDeleteFriend(user.id)}>
                                     {/* <FontAwesomeIcon icon={faAdd} size="lg" style={{ color: "white" }} /> */}
-                                    <p id="add-icon">+</p>
+                                    <p id="add-icon"><strong>+</strong></p>
                                 </button>
                                 {/* <button id="delete-friend" onClick={() => handleDeleteFriend(user.id)}>
                                     <FontAwesomeIcon icon={faDeleteLeft} size="lg" style={{ color: "#bb111a" }} />

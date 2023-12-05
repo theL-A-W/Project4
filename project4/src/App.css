@@ -279,15 +279,19 @@ border: 1px solid transparent;
 
 /* FRIENDS */
 #add-friend{
+  height: fit-content;
+  width: fit-content;
+  padding: 0 1vw;
+  margin: 1vh;
+  display: inline-flex;
+  align-content: center;
   background-color: rgb(103, 137, 186);
-  height: 3vh;
-  width: 3vw;
 }
 #add-icon{
   color: white;
-  display: flex;
-  justify-content: center;
-align-self: center;
+  margin: 0;
+  font-size: 2.2vh;
+  padding: 0 1vw;
 }
 
 
