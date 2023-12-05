@@ -78,6 +78,11 @@ width: 60vw;
   clip: rect(0px, 10vh);
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
 }
+#message-icon{
+  background-color: transparent;
+  border-color: transparent;
+  float: right;
+}
 
 
 
@@ -151,15 +156,6 @@ margin-left: 9vw;
   align-content: center;
   justify-content: center;
 }
-/* #stock-search-card{
-  overflow-y: scroll;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  box-shadow: 0px 0px 4px rgb(153, 151, 151);
-  height: 30vh;
-  width: 84vw;
-  margin: 2vh;
-} */
 #stock-search-card{
   overflow-y: scroll;
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
@@ -331,11 +327,45 @@ border: 1px solid transparent;
 }
 
 /* MESSAGES */
-#message-icon{
-  background-color: transparent;
-  border-color: transparent;
-  float: right;
+.messages{
+  height: 100vh;
 }
+#messages{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+#message-sender-list{
+  list-style: none;
+  margin: 1vh 1vw;
+}
+.message-list{
+  background-color: rgb(103, 137, 186);
+  height: 80vh;
+}
+#message-title{
+  background-color: rgb(103, 137, 186);
+  padding: 4vh 0;
+  margin: 0;
+  color: white;
+  font-size: 3.5vh;
+}
+.message-display-window{
+  border-radius: 5px;
+  height: 50vh;
+  box-shadow: 0px 0px 4px rgb(153, 151, 151);
+  margin: 1vh;
+}
+#message-input{
+  box-shadow: 0px 0px 4px rgb(153, 151, 151);
+  border-color: transparent;
+  border-radius: 5px;
+}
+.text-send{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+
 
 
 /* MEDIA QUERIES */

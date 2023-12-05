@@ -24,9 +24,11 @@ export default function Messages(){
 
     return(
         <div className="messages">
-            <h2>My Inbox</h2>
-            <MessageList messages={messages} />
-            <MessageInput onSendMessage={sendMessage} />
+            <h2 id="message-title">Messages</h2>
+            <div id="messages">
+                <MessageList messages={messages} />
+                <MessageInput onSendMessage={sendMessage} />
+            </div>
         </div>
     )
 }

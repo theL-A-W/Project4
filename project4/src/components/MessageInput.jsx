@@ -16,9 +16,12 @@ export default function MessageList(messages){
   };
 
   return (
-    <div>
-      <textarea value={message} onChange={handleInputChange} placeholder="Type your message..." />
+    <div className='message-input'>
+      <div className='message-display-window'></div>
+      <div className='text-send'>
+      <textarea id="message-input" value={message} onChange={handleInputChange} placeholder="Type your message..." />
       <button onClick={handleSendMessage}>Send</button>
+      </div>
     </div>
   );
 };
