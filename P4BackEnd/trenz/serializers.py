@@ -4,7 +4,7 @@ from .models import UserProfile, Friendship, Message, Stock
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = '__all __'
+        fields = '__all__'
 
 class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:

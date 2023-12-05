@@ -13,6 +13,7 @@ import Client from './api'
 
 export const SignInUser = async (data) => {
   try {
+    console.log(data)
     const res = await Client.post('/auth/login', data);
     console.log('Full response:', res);
     localStorage.setItem('token', res.data.token);

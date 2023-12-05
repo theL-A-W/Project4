@@ -9,21 +9,19 @@ import Register from './Register'
 export default function SignIn(props){
     const [show, setShow] = useState(true)
     let navigate = useNavigate()
-    const [formValues, setFormValues] = useState({ email: '', password: '' })
+    const [formValues, setFormValues] = useState({ username: '', password: '' })
 
+    const handleClose = () => {
+        if (props.user ) {
+             setShow(false);
+        }}
     const handleChange = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value })
       }
     
-      const handleClose = () => {
-        if ( props.user && props.authenticated ) {
-             setShow(false);
-             
-      } else{
-        console.log("You must sign-in")
-        alert('You must sign in!')
-      }
-    }
+
+        
+    
 
 
 
@@ -36,10 +34,10 @@ export default function SignIn(props){
         try {
         const payload = await SignInUser(formValues)
         console.log("Logged in successfully:", payload);
-        setFormValues({ email: '', password: '' })
+        handleClose()
+        setFormValues({ username: '', password: '' })
         props.setUser(payload)
         props.toggleAuthenticated(true)
-        navigate('/')
       }
       catch(error) {
         console.log("Error during login", error)
@@ -66,7 +64,7 @@ export default function SignIn(props){
                             <input
                             id="email-input"
                             onChange={handleChange}
-                            name="email"
+                            name="username"
                             // type="email"
                             type="input"
                             // placeholder="example@example.com"
@@ -96,7 +94,7 @@ export default function SignIn(props){
                             </div>
                     </ModalBody>
                     <ModalFooter>
-                    <button disabled={!formValues.email || !formValues.password}>
+                    <button disabled={!formValues.username || !formValues.password}>
                         Sign In
                     </button>
                     </ModalFooter>
