@@ -2,26 +2,30 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import axios from 'axios'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDeleteLeft, faAdd } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function FindFriends (){
     const [showFriends, setShowFriends] = useState();
-    const [user, setUser] = useState()
+    const [users, setUsers] = useState([])
 
-    const handleCloseFriends = () => setShowFriends(false);
-    const handleShowFriends = () => setShowFriends(true);
+    const handleCloseFriends = () => setShowFriends(false)
 
-//AXIOS CALL TO BACKEND
-        // useEffect(() => {
-        //     const searchUser = async () => {
-        //     const response = await axios.get(`http://localhost:8000/user-profile/2`)
-        //         setUser(response)
-        //         console.log(response)
-        //       }
-        //       searchUser()
-        // }, [])
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/list-users/');
+            setUsers(response.data.users);
+            console.log(response.data.users);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
 
+    const handleShowFriends = () => {
+        fetchUsers();
+        setShowFriends(true);
+    };
 
     return(
         <div>
@@ -37,14 +41,18 @@ export default function FindFriends (){
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <ul className="list-of-friends">
-                        {/* {userProfile.map(user => (
-                            <li key={user.id} className="friend-item">
+                        {users.map(user => (
+                            <li key={user.username} className="friend-item">
                                 {user.name}
-                                <button id="delete-friend" onClick={() => handleDeleteFriend(user.id)}>
-                                    <FontAwesomeIcon icon={faDeleteLeft} size="lg" style={{ color: "#bb111a" }} />
+                                <button id="add-friend" onClick={() => handleDeleteFriend(user.id)}>
+                                    {/* <FontAwesomeIcon icon={faAdd} size="lg" style={{ color: "white" }} /> */}
+                                    <p id="add-icon">+</p>
                                 </button>
+                                {/* <button id="delete-friend" onClick={() => handleDeleteFriend(user.id)}>
+                                    <FontAwesomeIcon icon={faDeleteLeft} size="lg" style={{ color: "#bb111a" }} />
+                                </button> */}
                             </li>
-                        ))} */}
+                        ))}
                     </ul>
                 </Offcanvas.Body>
             </Offcanvas>

@@ -5,10 +5,10 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from .views import login_view
-
+from .views import list_all_users
 
 urlpatterns = [
-
+    path('api/list-users/', list_all_users, name='list_all_users'),
     path('user-profile/<int:pk>/', views.UserProfile.as_view(), name='user-profile-detail'),
     path('friendship/', views.Friendship.as_view(), name='friendship-list-create'),
     path('message/', views.Message.as_view(), name='message-list-create'),

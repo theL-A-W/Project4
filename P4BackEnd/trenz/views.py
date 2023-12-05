@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
-
+from django.contrib.auth.models import User
 # TAKE OUT THIS LINE
 from django.http import HttpResponse
 import json
@@ -51,7 +51,10 @@ def login_view(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
-
+def list_all_users(request):
+    users = User.objects.all()
+    user_data = [{'username': user.username, 'email': user.email} for user in users]
+    return JsonResponse({'users': user_data})
 
 class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfile.objects.all()

@@ -277,6 +277,21 @@ border: 1px solid transparent;
 
 
 
+/* FRIENDS */
+#add-friend{
+  background-color: rgb(103, 137, 186);
+  height: 3vh;
+  width: 3vw;
+}
+#add-icon{
+  color: white;
+  display: flex;
+  justify-content: center;
+align-self: center;
+}
+
+
+
 /* STOCK DETAILS */
 .stock-details{
   height: 83vh;
