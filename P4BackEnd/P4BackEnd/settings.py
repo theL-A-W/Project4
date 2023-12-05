@@ -67,14 +67,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#FOR DJANGO AUTH
-# REST_FRAMEWORK = {
-#     # Use Django's standard `django.contrib.auth` permissions,
-#     # or allow read-only access for unauthenticated users.
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ]
-# }
+
 
 #FOR JWT AUTH
 REST_FRAMEWORK = {
@@ -85,13 +78,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny'
     ]
 }
-
-#IMPLEMENT THIS IF GETTING 401 OR 500 ON POST
-# 'DEFAULT_PERMISSION_CLASSES': [
-#    'rest_framework.permissions.AllowAny',
-# ]
-
-
 
 
 ROOT_URLCONF = 'P4BackEnd.urls'

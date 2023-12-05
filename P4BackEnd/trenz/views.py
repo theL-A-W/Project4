@@ -43,7 +43,7 @@ def login_view(request):
             # Assuming UserProfile has an email field
             user_data = {'username': user.username, 'email': user.email}
 
-            token = 'your_generated_token'
+            token = 'generatedToken'
 
             return JsonResponse({'user': user_data, 'token': token})
         else:
@@ -60,6 +60,22 @@ class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class SendMessageView(generics.CreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(sender=self.request.user)
+
+class InboxView(generics.ListAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Message.objects.filter(receiver=self.request.user)
+
 
 class Friendship(generics.ListCreateAPIView):
     queryset = Friendship.objects.all()

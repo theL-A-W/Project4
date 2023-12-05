@@ -206,7 +206,7 @@ export default function StockSearch (){
 
                     {stockSearch.map((stock) => (
             <div className='search-stocks' key={stock.id}>
-            <Link to={'/Stock Details/:tickerSymbol'}>
+            <Link to={'/StockDetails/:tickerSymbol'}>
                 <Card id='stock-search-card'>
                 <Card.Body>
                     <label>Symbol: </label>
