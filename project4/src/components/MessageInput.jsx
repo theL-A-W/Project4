@@ -11,49 +11,66 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
   const [friends, setFriends] = useState([]); // Initialize friends state
 
   useEffect(() => {
-    // Fetch friends data when the component mounts
-    const fetchFriends = async () => {
+    const fetchUserMessages = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/friendship/', {
+        const response = await axios.get(`http://localhost:8000/messages/?friend=${selectedFriend}`, {
           headers: {
             Authorization: `Token ${token}`,
           },
         });
-        setFriends(response.data);
+  
+        setUserMessages(response.data);
       } catch (error) {
-        console.error('Error fetching friends:', error);
+        console.error('Error fetching messages:', error);
       }
     };
-
-    fetchFriends();
-  }, [token]);
+  
+    // Check if a friend is selected before making the API call
+    if (selectedFriend) {
+      fetchUserMessages();
+    }
+  }, [selectedFriend, token]);
+  
 
   
 
 
 
   useEffect(() => {
-    // Fetch friends data when the component mounts
     const fetchUserMessages = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/message/', {
+        const response = await axios.get(`http://localhost:8000/messages/?friend=${selectedFriend}`, {
           headers: {
             Authorization: `Token ${token}`,
           },
         });
+  
         setUserMessages(response.data);
-        console.log(response.data)
       } catch (error) {
-        console.error('Error fetching friends:', error);
+        console.error('Error fetching messages:', error);
       }
     };
+  
+    // Check if a friend is selected before making the API call
+    if (selectedFriend) {
+      fetchUserMessages();
+    }
+  }, [selectedFriend, token]);
 
-    fetchUserMessages();
-
-  }, [token]);
-  console.log(userMessages)
-
-
+    // // Fetch friends data when the component mounts
+    // const fetchUserMessages = async () => {
+    //   try {
+    //     const response = await axios.get('http://localhost:8000/message/', {
+    //       headers: {
+    //         Authorization: `Token ${token}`,
+    //       },
+    //     });
+    //     setUserMessages(response.data);
+    //     console.log(response.data)
+    //   } catch (error) {
+    //     console.error('Error fetching friends:', error);
+    //   }
+    // };
 
 
 
