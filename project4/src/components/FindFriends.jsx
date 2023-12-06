@@ -4,12 +4,13 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDeleteLeft, faAdd } from '@fortawesome/free-solid-svg-icons'
-
+import { useUser } from '../../Context/userContext';
 
 export default function FindFriends (){
     const [showFriends, setShowFriends] = useState();
     const [users, setUsers] = useState([])
-
+    const [friends, setFriends] = useState([]); // Initialize friends state
+    const { userState: { user, token } } = useUser();
     const handleCloseFriends = () => setShowFriends(false)
 
     const fetchUsers = async () => {
@@ -21,6 +22,26 @@ export default function FindFriends (){
             console.error('Error fetching users:', error);
         }
     };
+
+    useEffect(() => {
+        // Fetch friends data when the component mounts
+        const fetchFriends = async () => {
+          try {
+            const response = await axios.get('http://localhost:8000/friendship/', {
+              headers: {
+                Authorization: `Token ${token}`,
+              },
+            });
+            setFriends(response.data);
+          } catch (error) {
+            console.error('Error fetching friends:', error);
+          }
+        };
+    
+        fetchFriends();
+      }, [token]);
+    
+      
 
     const handleShowFriends = () => {
         fetchUsers();

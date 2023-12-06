@@ -3,10 +3,10 @@ import axios from 'axios';
 import { Card, Button } from 'react-bootstrap';
 import { useUser } from '../../Context/userContext';
 
-export default function MessageInput({ onSendMessage, selectedFriend, friendshipId }) {
+export default function MessageInput({ onSendMessage, selectedFriend, friendshipId, messages }) {
   const [message, setMessage] = useState('');
   const { userState: { user, token } } = useUser();
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
   const [friends, setFriends] = useState([]); // Initialize friends state
 
@@ -28,6 +28,7 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
     fetchFriends();
   }, [token]);
 
+  
 
 
 
@@ -89,7 +90,6 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
   return (
     <div className='message-input'>
       <div className='message-display-window'>
-        {/* Check if friends is defined before using map */}
         {messages && userMessages.map((message) => {
 
           return (
