@@ -326,6 +326,8 @@ border: 1px solid transparent;
   margin: 1vh 1vw 2vh 1vw;
 }
 
+
+
 /* MESSAGES */
 .messages{
   height: 100vh;
@@ -333,16 +335,21 @@ border: 1px solid transparent;
 #messages{
   display: grid;
   grid-template-columns: auto auto;
-  
 }
 #message-sender-list{
   list-style: none;
   margin: 1vh 1vw;
 }
+#text-messages{
+  list-style: none;
+  margin: 1vh 1vw;
+  overflow-wrap: normal;
+}
 .message-list{
   background-color: rgb(103, 137, 186);
   height: 80vh;
   border: 1px solid rgb(103, 137, 186);
+  width: 29vw;
 }
 #message-title{
   background-color: rgb(103, 137, 186);
@@ -355,10 +362,13 @@ border: 1px solid transparent;
 .message-display-window{
   border-radius: 5px;
   height: 50vh;
+  justify-self: center;
+  width: 67vw;
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
   margin: 1vh;
   display: grid;
   grid-template-columns: auto auto;
+  background-color: white;
 }
 #message-input{
   box-shadow: 0px 0px 4px rgb(153, 151, 151);
@@ -388,14 +398,29 @@ border: 1px solid transparent;
   border-color: transparent;
   width: 100%;
   padding:  0 1vw;
-
+  
 }
-#friends-to-message:active{
-  background-color: rgba(255, 255, 255, 0.69);
+#friends-to-message:after{
+  background-color: rgb(72, 99, 137);
+  color: white;
 }
 #friends-to-message:hover{
   background-color: rgba(255, 255, 255, 0.588);
 }
+#selected-user-name{
+  background-color: rgb(72, 99, 137);
+  color: white;
+  border: 2px solid white;
+  padding: 1vh 0vh;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px rgb(40, 55, 75);
+  margin: .5vh;
+}
+.message-input{
+  background-color: rgba(72, 99, 137, 0.119);
+}
+
+
 
 
 
