@@ -2,9 +2,11 @@ from rest_framework import serializers
 from .models import UserProfile, Friendship, Message, Stock
 
 class MessageSerializer(serializers.ModelSerializer):
+    user1_username = serializers.ReadOnlyField(source='user1.username')
+    user2_username = serializers.ReadOnlyField(source='user2.username')
     class Meta:
         model = Message
-        fields = '__all__'
+        fields = ['id', 'user1', 'user2', 'user1_username', 'user2_username', 'content', 'timestamp']
 
 class UserProfileSerializer(serializers.ModelSerializer):
     messages = MessageSerializer(many=True, read_only=True)

@@ -41,15 +41,16 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
           },
         });
         setUserMessages(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error('Error fetching friends:', error);
       }
     };
 
     fetchUserMessages();
-    console.log(userMessages)
-  }, [token]);
 
+  }, [token]);
+  console.log(userMessages)
 
 
 
