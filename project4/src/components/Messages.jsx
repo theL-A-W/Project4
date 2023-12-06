@@ -107,7 +107,7 @@ export default function Messages() {
     const handleSelectFriend = (friendUsername, friendshipId) => {
       setSelectedFriend(friendUsername);
       setFriendshipId(friendshipId);
-  
+        console.log(friendUsername)
       // Fetch messages with the selected friend
       axios.get(`http://localhost:8000/messages/?friend=${friendUsername}`, {
         headers: {

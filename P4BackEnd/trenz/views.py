@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 # TAKE OUT THIS LINE
 from django.http import HttpResponse
 import json
-
+from django.db import models
 from django.http import JsonResponse
 from rest_framework import generics, permissions
 from rest_framework.response import Response
@@ -106,10 +106,27 @@ class Friendship(generics.ListCreateAPIView):
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class Message(generics.ListCreateAPIView):
+class MessageView(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class FriendshipMessagesView(generics.ListAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Retrieve the username of the friend from the query parameters
+        friend_username = self.request.query_params.get('friend', None)
+
+        # Filter messages based on the current user and the friend's username
+        if friend_username:
+            return Message.objects.filter(
+                (models.Q(user1=self.request.user) & models.Q(user2__username=friend_username)) |
+                (models.Q(user2=self.request.user) & models.Q(user1__username=friend_username))
+            )
+
+        return Message.objects.none()
 
 class StockDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Stock.objects.all()
