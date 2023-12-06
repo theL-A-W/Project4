@@ -39,12 +39,18 @@ export default function MessageList(messages){
         // Check if the current user's username matches either username
         const isCurrentUserFriend = username1 === currentUser || username2 === currentUser;
         // Render the card based on the condition
+
+    const handleShowMessages = () => {
+      
+    }
+
+
         return (
           <div key={friendship.id}>
             {isCurrentUserFriend && (
               <div>
                 <ul>
-                  <Button id="friends-to-message"><li id="message-sender-list"><Card>{otherUsername}</Card></li></Button>
+                  <Button id="friends-to-message" onClick={handleShowMessages}><li id="message-sender-list"><Card>{otherUsername}</Card></li></Button>
                 </ul>
                 {/* Render additional card content as needed */}
               </div>
