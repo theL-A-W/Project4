@@ -26,7 +26,7 @@ export default function MessageList({ friends, onSelectFriend }) {
                     onClick={() => onSelectFriend(otherUsername, friendship.id)}
                   >
                     <li id="message-sender-list">
-                      <Card>{otherUsername}</Card>
+                      <Button id="friends-to-message" >{otherUsername}</Button>
                     </li>
                   </Button>
                 </ul>

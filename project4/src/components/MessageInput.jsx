@@ -84,31 +84,19 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
       setMessage('');
     }
   };
-  const handleShowMessages = () => {
 
-  }
 
   return (
     <div className='message-input'>
       <div className='message-display-window'>
         {/* Check if friends is defined before using map */}
-        {friends && friends.map((friendship) => {
-          // Extract usernames from the friendship object
-          const [username1, username2] = friendship.usernames;
-          // Determine the other user's username
-          const otherUsername = username1 === user ? username2 : username1;
-          // Check if the current user's username matches either username
-          const isCurrentUserFriend = username1 === user || username2 === user;
+        {messages && userMessages.map((message) => {
 
           return (
-            <div key={friendship.id}>
-              {isCurrentUserFriend && (
+            <div key={message.user1}>
                 <div>
-                  <Button id="friends-to-message" onClick={handleShowMessages}>
-                    <li id="message-sender-list"><Card>{otherUsername}</Card></li>
-                  </Button>
+                    <li id="message-sender-list"><Card>{message.content}</Card></li>
                 </div>
-              )}
             </div>
           );
         })}

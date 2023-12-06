@@ -333,6 +333,7 @@ border: 1px solid transparent;
 #messages{
   display: grid;
   grid-template-columns: auto auto;
+  
 }
 #message-sender-list{
   list-style: none;
@@ -375,16 +376,25 @@ border: 1px solid transparent;
   margin-left: 1vh;
   padding: 2vh 1vw;
 }
-#message-send-btn :active{
+#message-send-btn:hover{
   box-shadow: 0px 0px 4px rgb(80, 109, 149);
   background-color: rgb(103, 137, 186);
   color: white;
 }
 #friends-to-message{
   padding: 0;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.927);
+  color: rgb(103, 137, 186);
   border-color: transparent;
   width: 100%;
+  padding:  0 1vw;
+
+}
+#friends-to-message:active{
+  background-color: rgba(255, 255, 255, 0.69);
+}
+#friends-to-message:hover{
+  background-color: rgba(255, 255, 255, 0.588);
 }
 
 
