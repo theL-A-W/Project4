@@ -8,6 +8,7 @@ export default function MessageList(messages){
   const { userState: { token, user }, setUser } = useUser();
   const [friends, setFriends] = useState([]);
   const currentUser = user
+  console.log(currentUser)
   const fetchFriends = async () => {
     try {
       const response = await axios.get('http://localhost:8000/friendship/', {
