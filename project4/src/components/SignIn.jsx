@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { SignInUser } from './services/Auth';
 import { useUser } from '../../Context/userContext'
-
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
