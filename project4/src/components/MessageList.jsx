@@ -21,14 +21,9 @@ export default function MessageList({ friends, onSelectFriend }) {
             {isCurrentUserFriend && (
               <div>
                 <ul>
-                  <Button
-                    id="friends-to-message"
-                    onClick={() => onSelectFriend(otherUsername, friendship.id)}
-                  >
                     <li id="message-sender-list">
-                      <Button id="friends-to-message" >{otherUsername}</Button>
+                      <Button id="friends-to-message" onClick={() => onSelectFriend(otherUsername, friendship.id)}>{otherUsername}</Button>
                     </li>
-                  </Button>
                 </ul>
               </div>
             )}
