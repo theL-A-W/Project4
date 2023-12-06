@@ -378,6 +378,12 @@ border: 1px solid transparent;
   background-color: rgb(103, 137, 186);
   color: white;
 }
+#friends-to-message{
+  padding: 0;
+  background-color: transparent;
+  border-color: transparent;
+  width: 100%;
+}
 
 
 

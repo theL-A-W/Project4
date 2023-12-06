@@ -1,5 +1,5 @@
 
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../../Context/userContext';
@@ -44,7 +44,7 @@ export default function MessageList(messages){
             {isCurrentUserFriend && (
               <div>
                 <ul>
-                  <li id="message-sender-list"><Card>{otherUsername}</Card></li>
+                  <Button id="friends-to-message"><li id="message-sender-list"><Card>{otherUsername}</Card></li></Button>
                 </ul>
                 {/* Render additional card content as needed */}
               </div>
