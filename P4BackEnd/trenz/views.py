@@ -83,11 +83,6 @@ class MessageView(generics.ListCreateAPIView, generics.UpdateAPIView, generics.D
             return JsonResponse({'success': 'Message deleted successfully'})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
-    # def get_object(self):
-    #     queryset = self.filter_queryset(self.get_queryset())
-    #     obj = get_object_or_404(queryset, pk=self.kwargs.get('pk'))
-    #     self.check_object_permissions(self.request, obj)
-    #     return obj
 
 class FriendshipMessagesView(generics.ListCreateAPIView):
     serializer_class = MessageSerializer

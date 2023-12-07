@@ -115,9 +115,9 @@ const handleDeleteMessage = async () => {
     const response = await axios.put(
       `http://localhost:8000/message/${messageId}/`,
       {
-        sender: sender,
-        receiver: selectedFriend.receiver,
-        content: message,
+        user1: sender,
+        user2: selectedFriend.receiver,
+        content: messageContent,
       },
       {
         headers: {
@@ -125,6 +125,7 @@ const handleDeleteMessage = async () => {
         },
       }
     );
+    console.log(message)
     setMessageId(null);
     setMessageContent('');
     fetchUserMessages();
@@ -183,7 +184,7 @@ const handleDeleteMessage = async () => {
       <div className='text-send'>
         <textarea
           id='message-input'
-          value={message}
+          value={messageContent}
           onChange={handleInputChange}
           placeholder='Type your message...'
         />
