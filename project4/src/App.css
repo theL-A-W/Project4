@@ -427,7 +427,16 @@ border: 1px solid transparent;
 .message-input{
   background-color: rgba(72, 99, 137, 0.119);
 }
-
+#message-card{
+  border-color: transparent;
+}
+#edit-dropdown{
+  background-color: rgba(72, 99, 137, 0.119);
+  width:fit-content;
+  padding: .5vh 3vw;
+  border-radius: 5px;
+  justify-self: center;
+}
 
 
 
