@@ -310,6 +310,10 @@ border: 1px solid transparent;
   width: 100vw;
   margin: 2vh 0 0 0;
   justify-self: center;
+  background-image: url('https://2.bp.blogspot.com/-yf2elvBfJ9s/XHUg3nhagtI/AAAAAAAAAGo/f8BANm63WhwyE4J5-dvvwZ31g7VJMlK3wCLcBGAs/s1600/usdinr.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 #stock-details-stats{
   height: 20vh;

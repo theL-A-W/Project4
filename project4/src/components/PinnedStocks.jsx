@@ -18,7 +18,7 @@ export default function PinnedStocks (){
                 <div id="profile-name">John Doe</div>
                 <h3>Pinned Stocks</h3>
             </Card>
-            <Link to={`/StockDetails/:tickersymbol`}><Card id="pinned-stock-card"></Card></Link>
+            <Link to={`/StockDetails/TSLA`}><Card id="pinned-stock-card"></Card></Link>
             <Card id="pinned-stock-card"></Card>
             <Card id="pinned-stock-card"></Card>
             <Card id="pinned-stock-card"></Card>

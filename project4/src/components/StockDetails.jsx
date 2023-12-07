@@ -43,8 +43,8 @@ export default function StockDetails (){
     return(
         <div className="stock-details">
             <h1 id="stock-search-title">{tickerSymbol}</h1>
-            <Card id="stock-graph">Stock graph
-        <h4>close price: {close}</h4>
+            <Card id="stock-graph">
+        <h4>{close}</h4>
         {/* <h4>heighest price for the day: {high}</h4>
         <h4>lowest price for the day: {low}</h4>
         <h4>number of transaction for the day: {n}</h4>
