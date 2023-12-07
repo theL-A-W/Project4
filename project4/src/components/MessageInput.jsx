@@ -41,12 +41,11 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
     console.log(selectedFriend)
  console.log(user)
       const response = await axios.post(
-        'http://localhost:8000/messages/', // Update URL
+        'http://localhost:8000/messages/',
         {
           sender: sender,
           receiver: selectedFriend.receiver,
           content: message,
-          // friendshipId: friendshipId, // Include friendship ID
         },
         {
           headers: {
@@ -55,8 +54,29 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
         }
       );
   console.log(response)
+      console.log(message)
+      setMessage('');
+      fetchUserMessages()
+  };
 
-      // setMessage([...messages, response.data]); // Update messages state with new message
+
+  const handleDeleteMessage = async () => {
+    console.log(selectedFriend)
+ console.log(user)
+      const response = await axios.delete(
+        'http://localhost:8000/messages/', 
+        {
+          sender: sender,
+          receiver: selectedFriend.receiver,
+          content: message,
+        },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+  console.log(response)
       console.log(message)
       setMessage('');
       fetchUserMessages()
