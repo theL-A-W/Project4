@@ -19,40 +19,6 @@ from .serializers import (
 )
 
 
-# @csrf_exempt
-# def login_view(request):
-#     user_data = {'username': username, 'email': email}
-#     token = 'your_generated_token'
-#     return JsonResponse({'user': user_data, 'token': token})
-
-# @csrf_exempt
-# def login_view(request):
-#     if request.method == 'POST':
-#         # Assuming the login data is sent in the request body as JSON
-#         data = json.loads(request.body.decode('utf-8'))
-#         print(data)
-#         # Extract email and password from the request data
-#         username = data.get('username', '')
-#         password = data.get('password', '')
-#         token = data.get('token', '')
-#         print(username, password)
-#         # Authenticate the user
-#         user = authenticate(request, username=username, password=password)
-#         print(user) 
-#         if user is not None:
-            
-#             # user_profile, created = UserProfile.objects.get_or_create(user=user)
-#             # Assuming UserProfile has an email field
-#             user_data = {'username': user.username, 'email': user.email}
-
-#             token, created = Token.objects.get_or_create(user=user)
-
-#             return JsonResponse({'user': user_data, 'token': token.key})
-#         else:
-#             return JsonResponse({'error': 'Invalid credentials'}, status=401)
-
-#     return JsonResponse({'error': 'Invalid request method'}, status=400)
-
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
