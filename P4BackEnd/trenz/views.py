@@ -72,7 +72,7 @@ class Friendship(generics.ListCreateAPIView):
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class MessageView(generics.ListCreateAPIView, generics.DestroyAPIView):
+class MessageView(generics.ListCreateAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -83,6 +83,11 @@ class MessageView(generics.ListCreateAPIView, generics.DestroyAPIView):
             return JsonResponse({'success': 'Message deleted successfully'})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+    # def get_object(self):
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #     obj = get_object_or_404(queryset, pk=self.kwargs.get('pk'))
+    #     self.check_object_permissions(self.request, obj)
+    #     return obj
 
 class FriendshipMessagesView(generics.ListCreateAPIView):
     serializer_class = MessageSerializer

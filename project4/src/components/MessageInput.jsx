@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Dropdown, DropdownMenu, Button, DropdownToggle, DropdownItem, Accordion, CardHeader} from 'react-bootstrap';
+import { Card, Dropdown, DropdownMenu, Button, Modal, DropdownToggle, DropdownItem, Accordion, CardHeader} from 'react-bootstrap';
 import { useUser } from '../../Context/userContext';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
@@ -13,8 +14,13 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
   const [userMessages, setUserMessages] = useState([]);
   const [isEditVisible, setEditVisibility] = useState(false);
   const [messageId, setMessageId]= useState({})
+  const [messageContent, setMessageContent]= useState('')
+  const [messageSender, setMessageSender]= useState('')
+  const [messageReceiver, setMessageReceiver]= useState('')
+  const [showEditModal, setShowEditModal] = useState(false);
 
-  function CustomToggle({ children, eventKey, messageId, setMessageId }) {
+
+  function CustomToggle({ children, eventKey, messageId, setMessageId, messageContent, setMessageContent }) {
 
     const decoratedOnClick = useAccordionButton(eventKey, () => {
       if (isEditVisible === false) {
@@ -32,7 +38,6 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
       </Button>
     );
   }
-
 
   const fetchUserMessages = async () => {
     try {
@@ -81,9 +86,15 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
       console.log(message)
       setMessage('');
       fetchUserMessages()
+
+
+      
   };
 
-// DELETE MESSAGE
+
+
+
+  // DELETE MESSAGE
 const handleDeleteMessage = async () => {
 
   const response = await axios.delete(
@@ -94,55 +105,45 @@ const handleDeleteMessage = async () => {
        },
      }
   );
-  setMessage('');
+  // setMessage('');
+  setMessageId({});
+  setMessageContent('');
   fetchUserMessages()
  };
 
-
-// EDIT MESSAGE
-  const handleEditMessage = async () => {
-    console.log(selectedFriend)
- console.log(user)
-      const response = await axios.put(
-        `http://localhost:8000/messages/${messageId}/`, 
-        {
-          sender: sender,
-          receiver: selectedFriend.receiver,
-          content: message,
+ const handleEditMessage = async () => {
+    const response = await axios.put(
+      `http://localhost:8000/message/${messageId}/`,
+      {
+        sender: sender,
+        receiver: selectedFriend.receiver,
+        content: message,
+      },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
-  console.log(response)
-      console.log(message)
-      setMessage('');
-      fetchUserMessages()
+      }
+    );
+    setMessageId(null);
+    setMessageContent('');
+    fetchUserMessages();
+    handleCloseEditModal();
   };
 
+  const changeMessage = () => {
+    setShowEditModal(true);
+  };
 
-
-
-
-
-
-
-
-const handleMessageDetails = () => {
-  if (isEditVisible == false){
-  setEditVisibility(true)
-}else{
-  setEditVisibility(false)
-}
-}
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
 
   return (
-      <div className='message-input'>
-        {/* ... (existing code) */}
-        <div className='message-display-window'>
-          {messages &&
+    <div className='message-input'>
+        <h2 id='selected-user-name'>{selectedFriend.receiverUsername}</h2>
+      <div className='message-display-window'>
+           {messages &&
             userMessages.map((message) => (
               <div key={message.id}>
                 <div>
@@ -152,9 +153,15 @@ const handleMessageDetails = () => {
                         <CustomToggle
                           data-id="{{ message.id }}"
                           eventKey='0'
-                          messageId={message.id}  // Pass the messageId to the CustomToggle
-                          setMessageId={setMessageId}  // Pass the function to update messageId
-                          onClick={handleMessageDetails}
+                          messageId={message.id}
+                          setMessageId={setMessageId}
+                          messageContent={message.content}
+                          setMessageContent={setMessageContent}
+                          messageSender={message.user1}
+                          setMessageSender = {messageSender}
+                          messageReceiver={message.user2}
+                          setMessageReceiver = {messageReceiver}
+
                           style={{ backgroundColor: message.user1 === selectedFriend.receiverId ? 'blue' : 'black' }}
                         >
                           {message.content}
@@ -162,7 +169,7 @@ const handleMessageDetails = () => {
                       </li>
                       <Accordion.Collapse eventKey='0'>
                         <Card.Body id='edit-dropdown' style={{ display: isEditVisible ? 'block' : 'none' }}>
-                          <Button id="edit-btn" onClick={handleEditMessage}>Edit</Button>
+                          <Button id="edit-btn" onClick={changeMessage}>Edit</Button>
                           <Button id="delete-btn" onClick={handleDeleteMessage}>Delete</Button>
                         </Card.Body>
                       </Accordion.Collapse>
@@ -171,7 +178,8 @@ const handleMessageDetails = () => {
                 </div>
               </div>
             ))}
-        </div>
+
+      </div>
       <div className='text-send'>
         <textarea
           id='message-input'
@@ -183,6 +191,27 @@ const handleMessageDetails = () => {
           Send
         </button>
       </div>
+
+      <Modal show={showEditModal} onHide={handleCloseEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Message</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <textarea
+            value={messageContent}
+            onChange={(e) => setMessageContent(e.target.value)}
+            placeholder='Edit your message...'
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleCloseEditModal}>
+            Close
+          </Button>
+          <Button variant='primary' onClick={handleEditMessage}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
