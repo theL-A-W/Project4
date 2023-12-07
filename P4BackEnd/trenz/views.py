@@ -77,60 +77,6 @@ class MessageView(generics.ListCreateAPIView):
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-# class FriendshipMessagesView(generics.ListAPIView):
-#     serializer_class = MessageSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-
-#     def get_queryset(self):
-#         friend_username = self.request.query_params.get('friend', None)
-
-#         if friend_username:
-#             return Message.objects.filter(
-#                 (models.Q(user1=self.request.user) & models.Q(user2__username=friend_username)) |
-#                 (models.Q(user2=self.request.user) & models.Q(user1__username=friend_username))
-#             )
-
-#         return Message.objects.none()
-# class FriendshipMessagesView(generics.ListCreateAPIView):
-#     serializer_class = MessageSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-
-#     def get_queryset(self):
-#         friend_username = self.request.query_params.get('friend', None)
-
-#         if friend_username:
-#             return Message.objects.filter(
-#                 (models.Q(user1=self.request.user) & models.Q(user2__username=friend_username)) |
-#                 (models.Q(user2=self.request.user) & models.Q(user1__username=friend_username))
-#             )
-
-#         return Message.objects.none()
-
-#     def create(self, request, *args, **kwargs):
-#         # Handle the creation of a new message
-#         friend_username = request.data.get('friend', None)
-#         friend_user = User.objects.get(username=friend_username)
-
-#         # Ensure the friendship exists
-#         friendship = Friendship.objects.filter(
-#             (models.Q(user1=request.user, user2=friend_user) | models.Q(user1=friend_user, user2=request.user))
-#         ).first()
-
-#         if not friendship:
-#             return Response({'error': 'Friendship not found'}, status=400)
-
-#         # Create the message
-#         data = {
-#             'user1': request.user.id,
-#             'user2': friend_user.id,
-#             'content': request.data.get('content', ''),
-#             'friendship_id': friendship.id,
-#         }
-#         serializer = self.get_serializer(data=data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-
-#         return Response(serializer.data, status=201)
 class FriendshipMessagesView(generics.ListCreateAPIView):
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
