@@ -37,48 +37,6 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
     setMessage(e.target.value);
   };
 
-
-  // const handleSendMessage = () => {
-  //   const userIdx = users.findIndex((u) => u.username === user);
-  //   const friendIdx = users.findIndex((u) => u.username === selectedFriend);
-    
-  //   console.log(userIdx, friendIdx);
-    
-  //   // if (userIdx === -1 || friendIdx === -1) {
-  //   //   console.error('User index or friend index not found.');
-  //   //   return;
-  //   // }
-
-  //   axios.post('http://localhost:8000/messages/', {
-  //     user1: userIdx,
-  //     user2: friendIdx,
-  //     content: message,
-  //     friendshipId: friendshipId,
-  //   }, {
-  //     headers: {
-  //       Authorization: `Token ${token}`,
-  //     },
-  //   })
-  //   .then((response) => {
-  //     onSendMessage(response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error sending message:', error);
-  //   });
-
-  //   setMessage('');
-  // };
-
-
-  // const handleSendMessage = () => {
-  //   const userIdx = users.findIndex((u) => u.username === user);
-  //   const friendIdx = users.findIndex((u) => u.username === selectedFriend);
-  
-  //   if (userIdx === -1 || friendIdx === -1) {
-  //     console.error('User index or friend index not found.');
-
-
-
   const handleSendMessage = async () => {
     console.log(selectedFriend)
  console.log(user)
