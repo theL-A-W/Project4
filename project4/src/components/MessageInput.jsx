@@ -14,28 +14,6 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
   const [isEditVisible, setEditVisibility] = useState(false);
   const [messageId, setMessageId]= useState({})
 
-
-
-  // function CustomToggle({ children, eventKey }) {
-
-  //   const decoratedOnClick = useAccordionButton(eventKey, () =>{
-  //   if (isEditVisible == false){
-  //     setEditVisibility(true)
-  //   }else{
-  //     setEditVisibility(false)
-  //   }
-  //   })
-  
-  //   return (
-  //     <Button id='message-dropdown-btn'
-  //       type="button"
-  //       onClick={decoratedOnClick}
-  //     >
-  //       {children}
-  //     </Button>
-  //   );
-  // }
-
   function CustomToggle({ children, eventKey, messageId, setMessageId }) {
 
     const decoratedOnClick = useAccordionButton(eventKey, () => {
@@ -72,29 +50,7 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
     }
   };
 
-
-//   const fetchUserMessages = async () => {
-//     try {
-//       const response = await axios.get('http://localhost:8000/messages/', {
-//         headers: {
-//           Authorization: `Token ${token}`,
-//         },
-//       });
-//       const allMessagesForUser = response.data.filter(
-//         (message) =>
-//           (message.sender === user.id && message.receiver === selectedFriend.receiverId) ||
-//           (message.sender === selectedFriend.receiverId && message.receiver === user.id)
-//       );
-//       console.log(message)
-//       setUserMessages(allMessagesForUser);
-//     } catch (error) {
-//       console.error('Failed to fetch messages: ', error);
-//     }
-//  };
-
   useEffect(() => {
-
-  
     if (selectedFriend) {
       fetchUserMessages();
       console.log(selectedFriend);
@@ -131,7 +87,7 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
 const handleDeleteMessage = async () => {
 
   const response = await axios.delete(
-     `http://localhost:8000/messages/${messageId}/`, 
+     `http://localhost:8000/message/${messageId}/`, 
      {
        headers: {
          Authorization: `Token ${token}`,

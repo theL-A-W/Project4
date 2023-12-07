@@ -14,6 +14,7 @@ urlpatterns = [
     path('user-profile/<int:pk>/', views.UserProfile.as_view(), name='user-profile-detail'),
     path('friendship/', views.Friendship.as_view(), name='friendship-list-create'),
     path('message/', views.MessageView.as_view(), name='message-list-create'),
+    path('message/<int:pk>/', views.MessageView.as_view(), name='message-detail'),
     path('messages/', FriendshipMessagesView.as_view(), name='friendship-messages'),
     path('messages/<int:pk>/', FriendshipMessagesView.as_view(), name='friendship-messages'),
     path('api/send-message/', SendMessageView.as_view(), name='send-message'),

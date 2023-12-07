@@ -72,10 +72,17 @@ class Friendship(generics.ListCreateAPIView):
     serializer_class = FriendshipSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class MessageView(generics.ListCreateAPIView):
+class MessageView(generics.ListCreateAPIView, generics.DestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
+    def delete(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            self.perform_destroy(instance)
+            return JsonResponse({'success': 'Message deleted successfully'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
 class FriendshipMessagesView(generics.ListCreateAPIView):
     serializer_class = MessageSerializer
@@ -116,6 +123,13 @@ class FriendshipMessagesView(generics.ListCreateAPIView):
         serializer.save()
 
         return Response(serializer.data, status=201)
+    def delete(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            self.perform_destroy(instance)
+            return JsonResponse({'success': 'Message deleted successfully'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
 class StockDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Stock.objects.all()
