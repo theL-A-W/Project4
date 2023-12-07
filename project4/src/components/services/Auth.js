@@ -22,7 +22,7 @@ export const SignInUser = async (data) => {
 
     localStorage.setItem('token', token);
     console.log('Token in Local Storage:', localStorage.getItem('token'));
-
+console.log(res.data)
     // Assuming user data is available directly in res.data.user
     const user = res.data.user;
 

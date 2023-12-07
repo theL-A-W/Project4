@@ -47,9 +47,29 @@ export default function FindFriends (){
         fetchUsers();
         setShowFriends(true);
     };
-    const handleAddFriends = () => {
-        
-    }
+
+
+    const handleAddFriend = async (friendId) => {
+        try {
+          const response = await axios.post(
+            'http://localhost:8000/friendship/',
+            {
+              user1: user,
+              user2: friendId, 
+            },
+            {
+              headers: {
+                Authorization: `Token ${token}`,
+              },
+            }
+          );
+      
+          // Handle the response or update your state accordingly
+          console.log('Friendship added:', response.data);
+        } catch (error) {
+          console.error('Error adding friendship:', error);
+        }
+      };
 
     return(
         <div>
@@ -68,7 +88,7 @@ export default function FindFriends (){
                         {users.map(user => (
                             <li key={user.username} className="friend-item">
                                 {user.username}
-                                <button id="add-friend" onClick={() => handleAddFriend(user.id)}>
+                                <button id="add-friend" onClick={() => handleAddFriend(user.username)}>
                                     {/* <FontAwesomeIcon icon={faAdd} size="lg" style={{ color: "white" }} /> */}
                                     <p id="add-icon"><strong>+</strong></p>
                                 </button>

@@ -6,12 +6,14 @@ import MessageList from './MessageList';
 
 
 export default function Messages() {
-    const { userState: { token, user }, setUser } = useUser();
-    const [friends, setFriends] = useState([]);
-    const [selectedFriend, setSelectedFriend] = useState(null); // Track the selected friend
-    const [friendshipId, setFriendshipId] = useState(null); // Track the selected friendship id
-    const [selectedFriendMessages, setSelectedFriendMessages] = useState([]); // Track messages with selected friend
-  
+    const { userState: { token, user }, setUser } = useUser()
+    const [friends, setFriends] = useState([])
+    const [sender, setSender] = useState(null)
+    const [selectedFriend, setSelectedFriend] = useState({})
+    const [friendshipId, setFriendshipId] = useState(null)
+    const [selectedFriendMessages, setSelectedFriendMessages] = useState([])
+    const [allUsers, setAllUsers] = useState('');
+
     const fetchFriends = async () => {
       try {
         const response = await axios.get('http://localhost:8000/friendship/', {
@@ -26,6 +28,20 @@ export default function Messages() {
         console.error('Error fetching friends:', error);
       }
     };
+
+    useEffect(() => {
+        const fetchAllUsers = async () => {
+          try {
+            const response = await axios.get('http://localhost:8000/api/list-users');
+            setAllUsers(response.data.users);
+            console.log(response.data.users)
+          } catch (error) {
+            console.error('Error fetching users:', error);
+          }
+        };
+    
+        fetchAllUsers();  // Fetch users when the component mounts
+      }, []); 
   
     useEffect(() => {
       fetchFriends();
@@ -51,10 +67,12 @@ export default function Messages() {
       });
     };
   
-    const handleSelectFriend = (friendUsername, friendshipId) => {
-      setSelectedFriend(friendUsername);
+    const handleSelectFriend = (receiverUsername,  receiver, friendshipId, sender) => {
+      setSelectedFriend({receiver, receiverUsername});
+      setSender(sender)
       setFriendshipId(friendshipId);
         console.log(friendUsername)
+        console.log(receiver)
     };
   
     return (
@@ -67,6 +85,8 @@ export default function Messages() {
             selectedFriend={selectedFriend}
             friendshipId={friendshipId}
             messages={selectedFriendMessages}
+            users = {allUsers}
+            sender = {sender}
           />
         </div>
       </div>

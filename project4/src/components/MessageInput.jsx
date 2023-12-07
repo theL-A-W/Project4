@@ -1,122 +1,120 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { useUser } from '../../Context/userContext';
 
-export default function MessageInput({ onSendMessage, selectedFriend, friendshipId, messages }) {
-  const [message, setMessage] = useState('');
+export default function MessageInput({ onSendMessage, selectedFriend, friendshipId, messages, users, sender }) {
+  const [message, setMessage] = useState([]);
+  const [allUsers, setAllUsers] = useState('');
   const { userState: { user, token } } = useUser();
-  // const [messages, setMessages] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
-  const [friends, setFriends] = useState([]); // Initialize friends state
+
+
+  const fetchUserMessages = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/messages/?friend=${selectedFriend.receiverUsername}`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+
+      setUserMessages(response.data);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUserMessages = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8000/messages/?friend=${selectedFriend}`, {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        });
+
   
-        setUserMessages(response.data);
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
-    };
-  
-    // Check if a friend is selected before making the API call
     if (selectedFriend) {
       fetchUserMessages();
+      console.log(selectedFriend);
     }
   }, [selectedFriend, token]);
-  
-
-  
-
-
-
-  useEffect(() => {
-    const fetchUserMessages = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8000/messages/?friend=${selectedFriend}`, {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        });
-  
-        setUserMessages(response.data);
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
-    };
-  
-    // Check if a friend is selected before making the API call
-    if (selectedFriend) {
-      fetchUserMessages();
-    }
-  }, [selectedFriend, token]);
-
-    // // Fetch friends data when the component mounts
-    // const fetchUserMessages = async () => {
-    //   try {
-    //     const response = await axios.get('http://localhost:8000/message/', {
-    //       headers: {
-    //         Authorization: `Token ${token}`,
-    //       },
-    //     });
-    //     setUserMessages(response.data);
-    //     console.log(response.data)
-    //   } catch (error) {
-    //     console.error('Error fetching friends:', error);
-    //   }
-    // };
-
-
 
   const handleInputChange = (e) => {
     setMessage(e.target.value);
   };
 
-  const handleSendMessage = () => {
-    if (message.trim() !== '') {
-      // Perform the API call to send the message and update the messages state
-      axios.post('http://localhost:8000/messages/', {
-        sender: user,
-        receiver: selectedFriend,
-        content: message,
-        friendship_id: friendshipId,
-      }, {
-        headers: {
-          Authorization: `Token ${token}`,
+
+  // const handleSendMessage = () => {
+  //   const userIdx = users.findIndex((u) => u.username === user);
+  //   const friendIdx = users.findIndex((u) => u.username === selectedFriend);
+    
+  //   console.log(userIdx, friendIdx);
+    
+  //   // if (userIdx === -1 || friendIdx === -1) {
+  //   //   console.error('User index or friend index not found.');
+  //   //   return;
+  //   // }
+
+  //   axios.post('http://localhost:8000/messages/', {
+  //     user1: userIdx,
+  //     user2: friendIdx,
+  //     content: message,
+  //     friendshipId: friendshipId,
+  //   }, {
+  //     headers: {
+  //       Authorization: `Token ${token}`,
+  //     },
+  //   })
+  //   .then((response) => {
+  //     onSendMessage(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error sending message:', error);
+  //   });
+
+  //   setMessage('');
+  // };
+
+
+  // const handleSendMessage = () => {
+  //   const userIdx = users.findIndex((u) => u.username === user);
+  //   const friendIdx = users.findIndex((u) => u.username === selectedFriend);
+  
+  //   if (userIdx === -1 || friendIdx === -1) {
+  //     console.error('User index or friend index not found.');
+
+
+
+  const handleSendMessage = async () => {
+    console.log(selectedFriend)
+ console.log(user)
+      const response = await axios.post(
+        'http://localhost:8000/messages/', // Update URL
+        {
+          sender: sender,
+          receiver: selectedFriend.receiver,
+          content: message,
+          // friendshipId: friendshipId, // Include friendship ID
         },
-      })
-      .then((response) => {
-        setMessages([...messages, response.data]);
-        onSendMessage(response.data); // Callback to inform parent about the new message
-      })
-      .catch((error) => {
-        console.error('Error sending message:', error);
-      });
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+  console.log(response)
 
+      // setMessage([...messages, response.data]); // Update messages state with new message
+      console.log(message)
       setMessage('');
-    }
+      fetchUserMessages()
   };
-
 
   return (
     <div className='message-input'>
-              <h2 id="selected-user-name">{selectedFriend}</h2>
+      <h2 id="selected-user-name">{selectedFriend.receiverUsername}</h2>
       <div className='message-display-window'>
-        {messages && userMessages.map((message) => {
-          return (
-            <div key={message.id}>
-                <div>
-                    <li id="text-messages"><Card>{message.content}</Card></li>
-                </div>
+        {messages && userMessages.map((message) => (
+          <div key={message.id}>
+            <div>
+              <li id="text-messages"><Card>{message.content}</Card></li>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
       <div className='text-send'>
         <textarea id="message-input" value={message} onChange={handleInputChange} placeholder="Type your message..." />

@@ -18,7 +18,7 @@ class FriendshipSerializer(serializers.ModelSerializer):
     usernames = serializers.SerializerMethodField() 
     class Meta:
         model = Friendship
-        fields = ['id', 'usernames']
+        fields = ['id', 'usernames', 'user1_id', 'user2_id']
 
     def get_usernames(self, obj):
         return [obj.user1.username, obj.user2.username]

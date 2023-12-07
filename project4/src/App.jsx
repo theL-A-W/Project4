@@ -14,15 +14,13 @@ function App() {
   const [authenticated, toggleAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    // Fetch stocks from API
+  // useEffect(() => {
     
 
 
 
 
 //This axios call below works!!!!! 
-
 
 //Can i map over this axios call to input all 500 different ticker symbols in staggnated periods?
 //This checks prices for one day. Make separate API calls for 1 month, 3 months, 6 months, 1 year, 3 years?
@@ -33,54 +31,7 @@ function App() {
     //   }
     //   getStock()
 
-
-
-
-
-
-
-
-//AXIOS CALL FOR SEARCH FUNCTIONALITY to get ticker symbol
-    // const getStock = async () => {
-    // const response = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=SONZ77OOD9744HMR`)
-    //     setStocks(response)
-    //     console.log(response.data)
-    //   }
-    //   getStock()
-
-
-    // const getStock = async () => {
-    // const response = await.axios.get(`wss://ws.finnhub.io?token=clicl7pr01qvtjtlfqegclicl7pr01qvtjtlfqf0`)
-    //     setStocks(response)
-    //   }
-    //   getStock()
-
-//       const getStock = async () => {
-//     const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-// api_key.apiKey = "clicl7pr01qvtjtlfqegclicl7pr01qvtjtlfqf0"
-// const response = new finnhub.DefaultApi()
-//         setStocks(response)
-//         console.log(setStocks)
-//         console.log(response)
-//       }
-//       getStock()
-    }, [])
-
-
-// try {
-// 	const response = await axios.request(options);
-// 	console.log(response.data);
-// } catch (error) {
-// 	console.error(error);
-// }
-
-
-
-
-
-
-
-
+    // }, [])
 
   return (
     <div>
@@ -91,15 +42,6 @@ function App() {
       <Main/>
       <Navigation/>
       <div>
-        {/* <h4>close price: </h4> */}
-        {/* <h4>heighest price for the day: {h}</h4>
-        <h4>lowest price for the day: {l}</h4>
-        <h4>number of transaction for the day: {n}</h4>
-        <h4>For OTC ticker?: {otc}</h4>
-        <h4>timestamp: {t}</h4>
-        <h4>trading volume: {v}</h4>
-        <h4>volume weighted average price: {vw}</h4>
-        <h4>will pull next page of data: {next_url}</h4> */}
       </div>
     </div>
   )
