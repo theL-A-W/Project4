@@ -7,14 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { DropdownItem, DropdownMenu, FormControl, FormGroup, FormLabel } from 'react-bootstrap'
 import FindFriends from './FindFriends';
-
+import { useUser } from '../../Context/userContext';
 
 
 export default function ProfileSettings (){
     const [selectedImage, setSelectedImage] = useState(null);
     const [show, setShow] = useState(false);
     const [showFriends, setShowFriends] = useState(false);
-    
+    const { userState: { user, token } } = useUser();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -34,6 +34,36 @@ export default function ProfileSettings (){
         const formData = new FormData();
         formData.append('profilePicture', selectedImage);
       }
+
+      const handleCreateProfile = async () => {
+     console.log(user)
+          const response = await axios.post(
+            'http://localhost:8000/user-profile/<int:pk>//',
+            {
+              user: user,
+              email: email,
+              username: username,
+              bio: bio,
+              avatar: img,
+              pinned_stocks: pinned-stocks,
+              messages: messages,
+
+            },
+            {
+              headers: {
+                Authorization: `Token ${token}`,
+              },
+            }
+          );
+      console.log(response)
+          console.log(message)
+          setMessage('');
+          fetchUserMessages()
+      };
+
+
+
+
 
 
     return(

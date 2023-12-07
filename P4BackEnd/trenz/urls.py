@@ -15,6 +15,7 @@ urlpatterns = [
     path('friendship/', views.Friendship.as_view(), name='friendship-list-create'),
     path('message/', views.MessageView.as_view(), name='message-list-create'),
     path('messages/', FriendshipMessagesView.as_view(), name='friendship-messages'),
+    path('messages/<int:pk>/', FriendshipMessagesView.as_view(), name='friendship-messages'),
     path('api/send-message/', SendMessageView.as_view(), name='send-message'),
     path('api/inbox/', InboxView.as_view(), name='inbox'),
     path('stock/', views.Stock.as_view(), name='stock-list-create'),
