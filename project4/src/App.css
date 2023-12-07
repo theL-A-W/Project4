@@ -431,12 +431,19 @@ border: 1px solid transparent;
   border-color: transparent;
 }
 #edit-dropdown{
-  background-color: rgba(72, 99, 137, 0.119);
-  width:fit-content;
   padding: .5vh 3vw;
   border-radius: 5px;
   justify-self: center;
 }
+#edit-btn, #delete-btn{
+  background-color: rgba(72, 99, 137, 0.119);
+  border-color: transparent;
+  color: rgb(72, 99, 137);
+  width: 17vw;
+  padding: .5vh 1vw;
+  font-size: 1.5vh;
+}
+
 
 
 

@@ -104,6 +104,36 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
       setMessage('');
       fetchUserMessages()
   };
+  const handleEditMessage = async () => {
+    console.log(selectedFriend)
+ console.log(user)
+      const response = await axios.put(
+        'http://localhost:8000/messages/', 
+        {
+          sender: sender,
+          receiver: selectedFriend.receiver,
+          content: message,
+        },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+  console.log(response)
+      console.log(message)
+      setMessage('');
+      fetchUserMessages()
+  };
+
+
+
+
+
+
+
+
+
 const handleMessageDetails = () => {
   if (isEditVisible == false){
   setEditVisibility(true)
@@ -130,7 +160,8 @@ const handleMessageDetails = () => {
                     </li>
                     <Accordion.Collapse eventKey='0'>
                       <Card.Body id='edit-dropdown' style={{ display: isEditVisible ? 'block' : 'none' }}>
-                        Edit
+                        <Button id="edit-btn" onClick={handleEditMessage}>Edit</Button>
+                        <Button id="delete-btn" onClick={handleDeleteMessage}>Delete</Button>
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>
