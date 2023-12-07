@@ -406,6 +406,7 @@ border: 1px solid transparent;
   color: rgb(103, 137, 186);
   border-color: transparent;
   width: 100%;
+  overflow-wrap: break-word;
   padding:  0 1vw;
 }
 #friends-to-message:after{
@@ -442,6 +443,12 @@ border: 1px solid transparent;
   width: 17vw;
   padding: .5vh 1vw;
   font-size: 1.5vh;
+}
+.blueBackground {
+  background-color: blue;
+}
+.whiteBackground {
+  background-color: white;
 }
 
 

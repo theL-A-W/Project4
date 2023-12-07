@@ -82,13 +82,10 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
           },
         }
       );
-  console.log(response)
+      console.log(response)
       console.log(message)
       setMessage('');
-      fetchUserMessages()
-
-
-      
+      fetchUserMessages()      
   };
 
 
@@ -140,6 +137,9 @@ const handleDeleteMessage = async () => {
     setShowEditModal(false);
   };
 
+
+console.log(selectedFriend)
+console.log(sender)
   return (
     <div className='message-input'>
         <h2 id='selected-user-name'>{selectedFriend.receiverUsername}</h2>
@@ -152,6 +152,7 @@ const handleDeleteMessage = async () => {
                     <Card id='message-card'>
                       <li id='text-messages'>
                         <CustomToggle
+                          // className={message.user2_username === selectedFriend.receiverUsername ? 'whiteBackground' : 'blueBackground' }
                           data-id="{{ message.id }}"
                           eventKey='0'
                           messageId={message.id}
@@ -162,8 +163,7 @@ const handleDeleteMessage = async () => {
                           setMessageSender = {messageSender}
                           messageReceiver={message.user2}
                           setMessageReceiver = {messageReceiver}
-
-                          style={{ backgroundColor: message.user1 === selectedFriend.receiverId ? 'blue' : 'black' }}
+                          className={message.user1 !== sender ? 'whiteBackground' : ''}
                         >
                           {message.content}
                         </CustomToggle>
@@ -184,7 +184,7 @@ const handleDeleteMessage = async () => {
       <div className='text-send'>
         <textarea
           id='message-input'
-          value={messageContent}
+          value={message}
           onChange={handleInputChange}
           placeholder='Type your message...'
         />
