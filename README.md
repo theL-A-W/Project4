@@ -6,10 +6,14 @@ Welcome to Trenz, a full-stack analytical application optimized for web first. T
 ## Features
 
 - **User Profiles:** Create and customize your user profile with personal information and investment style preferences.
-- **Reccommended Stocks:** Access your personalized stock reccommendations with your individualized trading strategy.
-- **Stock Search:** Explore and discover new stocks through search and filter.
-- **Detailed Stock Analysis:** Create, edit, and delete events with full CRUD capabilities directly from your calendar. Full CRUD exists on the backend across the event and user schemas.
+- **Messaging Friends:** Message friends to share investing tips and tricks, network, and socialize.
+- **Stock Search:** Explore and discover new stocks through search.
+- **News:** Keep up to date with the latest financial news, so you never miss out on a good buy or a quick sell.
 - **User Interactivity:** Create, edit, and delete your profile with full CRUD capabilities directly from your user home. Full CRUD exists on the backend as well across the user schema.
+
+## App Overview
+
+![](./project4/src/assets/TrenzScreenshots.png)
 
 ## Wireframe
 
@@ -17,11 +21,12 @@ Welcome to Trenz, a full-stack analytical application optimized for web first. T
 
 ## Stretch Goals
 1. Find and add Friends
-2. Message friends
+2. Stock graphs with 1 day, 3 month, 6 month, 1, year, and 5 year views
 3. Create a forum/group and post stock tips for your group to see
 4. Buy and sell stocks with integration of trading applications
 5. Education platform to bring investment books, websites, video lectures, and courses all to one place for easy learning.
 6. Gamify the learning process through market quizes and games.
+7. Detailed stock analysis with stock recommendations based on your personalized investing style
 
 ## Contributors
 
