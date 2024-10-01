@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useUser } from '../../Context/userContext';
+import { useUser } from './UserContext';
 import MessageInput from './MessageInput';
 import MessageList from './MessageList';
 

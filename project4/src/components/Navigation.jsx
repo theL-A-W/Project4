@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faHome, faMagnifyingGlass, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { useUser } from './UserContext';
 
 export default function Navigation() {
+  const { userState, signOut } = useUser(); // Access user context
   return (
-    <div className='navigation'>
+    <nav className='navigation'>
       <nav className="fixed bottom-0 left-0 right-0 bg-gray-100 shadow-md z-10">
         <div className="flex justify-around p-3">
           <a href="/" className="flex flex-col items-center text-gray-700 hover:text-blue-500">
@@ -22,8 +24,15 @@ export default function Navigation() {
             <FontAwesomeIcon icon={faUser} size="2x" />
             <span className="text-xs">Profile</span>
           </a>
+          {userState.token && (
+                <button 
+                    onClick={signOut} 
+                    className="hidden lg:block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
+                    Sign Out
+                </button>
+            )}
         </div>
       </nav>
-    </div>
+    </nav>
   );
 }
