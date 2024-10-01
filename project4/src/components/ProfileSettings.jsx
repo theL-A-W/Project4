@@ -1,115 +1,138 @@
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Modal from 'react-bootstrap/Modal'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import { DropdownItem, DropdownMenu, FormControl, FormGroup, FormLabel } from 'react-bootstrap'
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import FindFriends from './FindFriends';
-import { useUser } from '../../Context/userContext';
+import { useUser } from '../components/UserContext';
+import axios from 'axios';
 
+export default function ProfileSettings() {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [show, setShow] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
+  const { userState: { user, token } } = useUser();
 
-export default function ProfileSettings (){
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [show, setShow] = useState(false);
-    const [showFriends, setShowFriends] = useState(false);
-    const { userState: { user, token } } = useUser();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleShowFriends = () => setShowFriends(true);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const handleShowFriends = () => setShowFriends(true);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+  };
 
-    const handleImageChange = (e) => {
-        // Handle the selected image and update the state
-        const file = e.target.files[0];
-        setSelectedImage(file);
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-    
-        // Add logic here to handle the submission, e.g., upload the image to the server
-        // You can use FormData to send the image file to your backend
-        const formData = new FormData();
-        formData.append('profilePicture', selectedImage);
-      }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('profilePicture', selectedImage);
 
-      const handleCreateProfile = async () => {
-     console.log(user)
-          const response = await axios.post(
-            'http://localhost:8000/user-profile/<int:pk>//',
-            {
-              user: user,
-              email: email,
-              username: username,
-              bio: bio,
-              avatar: img,
-              pinned_stocks: pinned-stocks,
-              messages: messages,
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/user-profile/', // Update with the correct endpoint
+        formData,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log('Profile picture updated:', response.data);
+    } catch (error) {
+      console.error('Error updating profile picture:', error);
+    }
+  };
 
-            },
-            {
-              headers: {
-                Authorization: `Token ${token}`,
-              },
-            }
-          );
-      console.log(response)
-          console.log(message)
-          setMessage('');
-          fetchUserMessages()
-      };
+  const handleCreateProfile = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/user-profile/', // Update with the correct endpoint
+        {
+          user: user,
+          // Add your other fields here
+        },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error('Error creating profile:', error);
+    }
+  };
 
-
-
-
-
-
-    return(
-        <div className="profile-settings">
-            <div id="buttons-in-header">
-            <Button variant="link" id="back-btn"><FontAwesomeIcon id="icon" icon={faAngleLeft} size="2x" /></Button>
-            <FindFriends showFriends= {showFriends}/>
-            </div>
-            <div id="profile-img-profile-home"><Button id='edit-profile-photo' variant="primary" onClick={handleShow}><FontAwesomeIcon id="icon"  icon={faPenToSquare} size="xl"/></Button></div>
-
-            <Form className='profile-form'>
-                <FormLabel id= 'form-label'>Username: </FormLabel>
-                <FormGroup id='form-group'>
-                <FormControl type="input" id="change-username-input" placeholder="username">
-                </FormControl>
-                </FormGroup>
-                
-                <FormLabel id="form-label">Bio: </FormLabel>
-                <FormGroup id='form-group'>
-                <Form.Control as="textarea" rows={3} />
-                </FormGroup>
-            </Form>
-            <Button id="update">Update</Button>
-
-        <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
+  return (
+    <div className="p-4">
+      <div className="flex items-center justify-between mb-4">
+        <button className="text-blue-500 hover:underline" id="back-btn">
+          <FontAwesomeIcon id="icon" icon={faAngleLeft} size="2x" />
+        </button>
+        <FindFriends showFriends={showFriends} />
+      </div>
+      <div className="flex items-center mb-4">
+        <button
+          id='edit-profile-photo'
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={handleShow}
         >
-            <Modal.Header closeButton>
-            <Modal.Title>Edit Your Profile Photo</Modal.Title>
-            </Modal.Header>
-            <Form>
-            <Modal.Body>
-            <FormLabel id="form-label">Profile photo: </FormLabel>
-                <FormGroup id='form-group'>
-                <Form.Control type='file' accept="image/*" onChange={handleImageChange} />
-                </FormGroup>
-            </Modal.Body>
-            <Modal.Footer>
-            <Button type="submit" id='update-profile-photo'>Update Profile Picture</Button>
-            </Modal.Footer>
-            </Form>
-        </Modal>
+          <FontAwesomeIcon id="icon" icon={faPenToSquare} size="xl" />
+        </button>
+      </div>
 
-     </div>
-    )
+      <form className='mb-4' onSubmit={handleSubmit}>
+        <label htmlFor="change-username-input" className='block text-lg font-bold mb-2'>Username:</label>
+        <input
+          type="text"
+          id="change-username-input"
+          placeholder="username"
+          className="border border-gray-300 rounded p-2 mb-4 w-full"
+        />
+        
+        <label htmlFor="bio" className="block text-lg font-bold mb-2">Bio:</label>
+        <textarea
+          id="bio"
+          rows={3}
+          className="border border-gray-300 rounded p-2 mb-4 w-full"
+        />
+        <button
+          id="update"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Update
+        </button>
+      </form>
+
+      {show && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded shadow-md w-1/2">
+            <h2 className="text-lg font-bold">Edit Your Profile Photo</h2>
+            <form onSubmit={handleSubmit}>
+              <label className="block text-lg font-bold mb-2">Profile photo:</label>
+              <input
+                type='file'
+                accept="image/*"
+                onChange={handleImageChange}
+                className="border border-gray-300 rounded p-2 mb-4"
+              />
+              <button
+                type="submit"
+                id='update-profile-photo'
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                Update Profile Picture
+              </button>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="ml-2 bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+              >
+                Close
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

@@ -1,12 +1,9 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import { FormControl } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Carousel from 'react-bootstrap/Carousel';
-import NewsGrid from './NewsGrid'
+import NewsGrid from './NewsGrid';
+import { Carousel } from 'react-responsive-carousel'; // Using a different carousel for better Tailwind integration
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Import carousel styles
 
 export default function News() {
   const [newsData, setNewsData] = useState([]);
@@ -22,69 +19,41 @@ export default function News() {
     searchNews();
   }, []);
 
-  
-
   return (
-    <div className='news'>
-      <h1 id='stock-search-title'>News</h1>
+    <div className='news p-4'>
+      <h1 className='text-2xl font-bold mb-4' id='stock-search-title'>News</h1>
 
+      {/* SEARCH BAR */}
+      <div className='flex mb-4'>
+        <input 
+          type='text' 
+          id='stock-search-input' 
+          placeholder='Search'
+          className='border border-gray-300 rounded-l-lg p-2 flex-grow'
+        />
+        <button className='bg-blue-500 text-white rounded-r-lg px-4'>Enter</button>
+      </div>
 
-{/* SEARCH BAR */}
-      <Form className='news-form'>
-        <FormControl type='input' id='stock-search-input' placeholder='search' />
-        <Button>Enter</Button>
-      </Form>
-
-
-{/* NEWS CAROUSEL */}
-      <Card id='top-news-card'>
-      <Carousel>
-        {newsData.map((news) => (
-          <Carousel.Item key={news.id} interval={5000}>
-            <Link to={news.url}>
-            <img
-              className='d-block w-100'
-              src={news.image_url ? news.image_url : 'https://img.freepik.com/free-vector/global-digital-earth-network-connection-technology-background_1017-23328.jpg'}
-              alt={`Image for ${news.title}`}
-            />   
-            <Carousel.Caption id="carousel-caption">
-              <h3>{news.title}</h3>
-            </Carousel.Caption>
-            </Link>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-      </Card>
-
-
-
-{/* NEWS CARDS GRID */}
-    {/* {newsData.map((news) => (
-        <div className='pinned-stocks' key={news.id}>
-          <Link to={news.url}>
-            <Card id='news-card'>
-              {news.image_url ? (
-                <Card.Img variant='top' className='news-image' src={news.image_url} alt={`Image for ${news.title}`} />
-              ) : (
-                <Card.Img
-                  variant='top'
-                  className='event-image'
-                  src='https://img.freepik.com/free-vector/global-digital-earth-network-connection-technology-background_1017-23328.jpg'
-                  alt='Default Image'
+      {/* NEWS CAROUSEL */}
+      <div className='mb-6'>
+        <Carousel showArrows={true} infiniteLoop={true} autoPlay={true} interval={5000}>
+          {newsData.map((news) => (
+            <div key={news.id}>
+              <Link to={news.url}>
+                <img
+                  className='w-full h-64 object-cover'
+                  src={news.image_url ? news.image_url : 'https://img.freepik.com/free-vector/global-digital-earth-network-connection-technology-background_1017-23328.jpg'}
+                  alt={`Image for ${news.title}`}
                 />
-              )}
-              <Card.Body>
-                <Card.Title>{news.title}</Card.Title>
-                <Card.Text>{news.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Link>
-        </div>
-      ))} */}
+                <p className='absolute bottom-0 left-0 bg-black text-white p-2 opacity-75'>{news.title}</p>
+              </Link>
+            </div>
+          ))}
+        </Carousel>
+      </div>
 
-
-<NewsGrid/>
-
-      </div> 
+      {/* NEWS CARDS GRID */}
+      <NewsGrid newsData={newsData} />
+    </div>
   );
 }

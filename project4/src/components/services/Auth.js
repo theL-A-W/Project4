@@ -1,55 +1,86 @@
-import Client from './api'
+import Client from './api';
 
-
-// export const SignInUser = async (data) => {
-//   try {
-//     const res = await Client.post('/auth/login', data)
-//     localStorage.setItem('token', res.data.token)
-//     return res.data.user
-//   } catch (error) {
-//     throw error
-//   }
-// }
-
+// Sign in a user
 export const SignInUser = async (data) => {
-  try {
     console.log(data);
     const res = await Client.post('/auth/login', data);
     console.log('Full response:', res);
 
-    // Assuming token is available directly in res.data
-    const token = res.data.token;
+    // Assuming the response includes both user data and tokens
+    const { user, token, refresh } = res.data;
 
+    // Store tokens in local storage
     localStorage.setItem('token', token);
-    console.log('Token in Local Storage:', localStorage.getItem('token'));
-console.log(res.data)
-    // Assuming user data is available directly in res.data.user
-    const user = res.data.user;
+    localStorage.setItem('refresh', refresh); // Store refresh token
 
-    // Return an object containing both user data and token
-    return { user, token };
-  } catch (error) {
-    throw error;
-  }
+    console.log('Token in Local Storage:', localStorage.getItem('token'));
+    console.log(res.data);
+
+    // Return user data and tokens
+    return { user, token, refresh };
 };
 
-
-
+// Register a user
 export const RegisterUser = async (data) => {
-  try {
-    const res = await Client.post('/auth/register', data)
-    return res.data
-  } catch (error) {
-    throw error
-  }
-}
+    const res = await Client.post('/auth/register', data);
+    return res.data;
+};
 
+// Check session
 export const CheckSession = async () => {
-  try {
-    // Checks if the current token if it exists is valid
-    const res = await Client.get('/auth/session')
-    return res.data
-  } catch (error) {
-    throw error
-  }
-}
+    // Checks if the current token, if it exists, is valid
+    const res = await Client.get('/auth/session');
+    return res.data;
+};
+
+// Refresh token functionality
+export const RefreshToken = async () => {
+    const refresh = localStorage.getItem('refresh');
+    if (!refresh) {
+        throw new Error('No refresh token available');
+    }
+
+    const res = await Client.post('/auth/token/refresh', { refresh });
+    const newToken = res.data.token; // Assuming the new token is returned in this format
+
+    localStorage.setItem('token', newToken);
+    console.log('New token stored:', newToken);
+
+    return newToken;
+};
+
+// Fetch with auth
+export const fetchWithAuth = async (url, options = {}) => {
+    const token = localStorage.getItem('token');
+
+    const headers = {
+        ...options.headers,
+        'Authorization': `Bearer ${token}`, // Corrected template literal
+    };
+
+    const response = await Client.fetch(url, {
+        ...options,
+        headers,
+    });
+
+    // Check if the response indicates an expired token and refresh if necessary
+    if (response.status === 401) {
+        // Token might be expired; try refreshing it
+        try {
+            const newToken = await RefreshToken();
+            headers['Authorization'] = `Bearer ${newToken}`; // Corrected template literal
+
+            // Retry the original request with the new token
+            const retryResponse = await Client.fetch(url, {
+                ...options,
+                headers,
+            });
+            return retryResponse; // Return the retried response
+        } catch (error) {
+            console.error('Error refreshing token:', error);
+            throw error; // Rethrow the error if refreshing fails
+        }
+    }
+
+    return response; // Return the original response if no issues
+};

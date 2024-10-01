@@ -1,99 +1,98 @@
 import { useState } from 'react';
 import { SignInUser } from './services/Auth';
-import { useUser } from '../../Context/userContext';
-import Modal from 'react-bootstrap/Modal';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
+import { useUser } from '../components/UserContext';
 import Register from './Register';
 
 export default function SignIn() {
-  const { userState, setUser } = useUser();
-  const [show, setShow] = useState(true);
-  const [formValues, setFormValues] = useState({ username: '', password: '' });
-  const handleClose = () => {
-    setShow(false);
-  };
+    const { setUser } = useUser();  // useUser from context to set user
+    const [show, setShow] = useState(true);
+    const [formValues, setFormValues] = useState({ username: '', password: '' });
+    const [loginError, setLoginError] = useState(null);  // Track login errors
 
-  const handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
-  };
+    const handleClose = () => {
+        setShow(false);
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const payload = await SignInUser(formValues);
-      console.log('Response from server:', payload);
+    const handleChange = (e) => {
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    };
 
-      if (payload && payload.user && payload.token) {
-        console.log('Logged in successfully:', payload);
-        setFormValues({ username: '', password: '' });
-        setUser(payload.user.username, payload.token);
-        console.log('User state after setting:', userState);
-        handleClose();
-      } else {
-        console.log('Login failed. Payload is undefined or incomplete.');
-      }
-    } catch (error) {
-      console.log('Error during login', error);
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const payload = await SignInUser(formValues);
+            console.log('Response from server:', payload);
 
-  console.log('User state before setting:', userState);
+            if (payload && payload.user && payload.token) {
+                console.log('Logged in successfully:', payload);
+                setFormValues({ username: '', password: '' });
 
-  return (
-    <div className="signin col">
-      <Modal
-        className='sign-in-modal'
-        show={show}
-        backdrop="static"
-        keyboard={false}
-      >
-        <ModalHeader className='sign-in-modal-header' closeButton></ModalHeader>
-        <div className="card-overlay centered">
-          <form className="col" onSubmit={handleSubmit}>
-            <ModalBody className='sign-in-modal-body'>
-              <div className="input-wrapper">
-                <div>
-                  <label htmlFor="email" id="email-label">Username:</label>
-                </div>
-                <input
-                  id="email-input"
-                  onChange={handleChange}
-                  name="username"
-                  type="input"
-                  placeholder="example123"
-                  value={formValues.email}
-                  required
-                />
-              </div>
+                // Store user data and tokens in localStorage
+                const user = { username: payload.user.username, token: payload.token, refresh: payload.refresh };
+                localStorage.setItem('user', JSON.stringify(user));
 
-              <div className="input-wrapper">
-                <div>
-                  <label htmlFor="password">Password:</label>
-                </div>
-                <input
-                  id="password-input"
-                  onChange={handleChange}
-                  type="password"
-                  name="password"
-                  value={formValues.password}
-                  required
-                />
-              </div>
+                // Set the user object in context
+                setUser(user);  // Pass entire user object here, instead of splitting arguments
+                handleClose();
+            } else {
+                setLoginError('Login failed. Invalid credentials or incomplete payload.');
+                console.log('Login failed. Payload is undefined or incomplete.');
+            }
+        } catch (error) {
+            setLoginError('Error during login. Please try again.');
+            console.log('Error during login:', error);
+        }
+    };
 
-              <div>
-                <p>Don't have an account?</p>
-                <Register />
-              </div>
-            </ModalBody>
-            <ModalFooter>
-              <button disabled={!formValues.username || !formValues.password}>
-                Sign In
-              </button>
-            </ModalFooter>
-          </form>
+    return (
+        <div className={`fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 ${show ? '' : 'hidden'}`}>
+            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-auto">
+                <button className="text-right text-gray-500 hover:text-gray-800 mb-4" onClick={handleClose}>&times;</button>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            value={formValues.username}
+                            onChange={handleChange}
+                            required
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            value={formValues.password}
+                            onChange={handleChange}
+                            required
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        />
+                    </div>
+
+                    {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
+
+                    <div className="flex justify-between items-center">
+                        <p className="text-sm text-gray-600">Dont have an account?</p>
+                        <Register />
+                    </div>
+
+                    <div>
+                        <button
+                            type="submit"
+                            disabled={!formValues.username || !formValues.password}
+                            className="w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </Modal>
-    </div>
-  );
+    );
 }

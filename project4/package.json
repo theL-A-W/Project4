@@ -2,7 +2,6 @@
   "name": "project4",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -18,17 +17,31 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.19.0",
-    "superagent": "^8.1.2"
+    "superagent": "^8.1.2",
+    "tailwind": "^4.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "postcss": "^8.4.47",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.13",
     "vite": "^5.0.0"
-  }
+  },
+  "description": "Welcome to Trenz, a full-stack analytical application optimized for web first. Trens allows users to customize their preffered trading type and gives them reccomendations on stock to buy based on the current trend of the stock.",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "Project4"
+  },
+  "author": "",
+  "license": "ISC"
 }

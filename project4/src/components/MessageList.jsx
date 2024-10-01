@@ -1,32 +1,30 @@
-
-import { Card, Button } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useUser } from '../../Context/userContext';
 
-
-
 export default function MessageList({ friends, onSelectFriend }) {
-  const { userState: { user, token } } = useUser();
+  const { userState: { user } } = useUser();
 
   return (
-    <div className="message-list">
+    <div className="message-list p-4 bg-white rounded shadow-md">
       {friends.map((friendship) => {
         const [username1, username2] = friendship.usernames;
-        const sender = friendship.user1_id
-        const receiver = friendship.user2_id
-        const otherUsername = username1 === user ? username2 : username1
+        const sender = friendship.user1_id;
+        const receiver = friendship.user2_id;
+        const otherUsername = username1 === user ? username2 : username1;
         const isCurrentUserFriend = username1 === user || username2 === user;
-console.log(receiver)
-console.log(friendship)
+
         return (
-          <div key={friendship.id}>
+          <div key={friendship.id} className="mb-2">
             {isCurrentUserFriend && (
               <div>
                 <ul>
-                    <li id="message-sender-list">
-                      <Button id="friends-to-message" onClick={() => onSelectFriend(otherUsername, receiver, friendship.id, sender)}>{otherUsername}</Button>
-                    </li>
+                  <li>
+                    <button
+                      className="w-full text-left bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                      onClick={() => onSelectFriend(otherUsername, receiver, friendship.id, sender)}
+                    >
+                      {otherUsername}
+                    </button>
+                  </li>
                 </ul>
               </div>
             )}

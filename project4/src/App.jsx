@@ -1,50 +1,55 @@
-import { useState, useEffect } from 'react'
-import ProfileSettings from './components/ProfileSettings'
-import Navigation from './components/Navigation'
-import './App.css'
-import Home from './components/Home'
-import Main from './components/Main'
-import axios from 'axios'
-// const finnhub = require('finnhub')
-import finnhub from 'finnhub'
-import SignIn from './components/SignIn'
+import { useEffect } from 'react';
+import Navigation from './components/Navigation';
+import './App.css';
+import { useUser } from './components/UserContext'; // Use useUser from context
+import Main from './components/Main';
+import SignIn from './components/SignIn';
 
 function App() {
-  const [stocks, setStocks] = useState([])
-  const [authenticated, toggleAuthenticated] = useState(false)
-  const [user, setUser] = useState(null)
+    const { userState, setUser } = useUser(); // Access user context state
 
-  // useEffect(() => {
-    
+    useEffect(() => {
+        // Log the current user state to debug if it's updating correctly
+        console.log('Current userState:', userState);
 
+        // Check if there's already a userState set, avoid redundant updates
+        if (!userState.token) {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                try {
+                    const parsedUser = JSON.parse(storedUser);
+                    console.log('Parsed user from localStorage:', parsedUser);
 
+                    // Ensure the token is accessed directly from the parsed user
+                    if (parsedUser && parsedUser.token) {
+                        console.log('Valid token found. Setting user state.');
+                        setUser(parsedUser); // Restore user from localStorage into UserContext
+                    } else {
+                        console.warn('No valid token found in parsed user');
+                    }
+                } catch (error) {
+                    console.error('Error parsing stored user:', error);
+                }
+            } else {
+                console.warn('No user data found in localStorage');
+            }
+        }
+    }, [userState.token, setUser]); // Only run when userState.token or setUser changes
 
-
-//This axios call below works!!!!! 
-
-//Can i map over this axios call to input all 500 different ticker symbols in staggnated periods?
-//This checks prices for one day. Make separate API calls for 1 month, 3 months, 6 months, 1 year, 3 years?
-    // const getStock = async () => {
-    // const response = await axios.get(`https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09/2023-01-09?adjusted=true&sort=asc&limit=120&apiKey=1H7Tj22l9ZaxOuBw9xRv0m60HSotsBGt`)
-    //     setStocks(response.data.results)
-    //     console.log(response.data.results[0])
-    //   }
-    //   getStock()
-
-    // }, [])
-
-  return (
-    <div>
-      <SignIn
-  setUser={setUser}
-  toggleAuthenticated={toggleAuthenticated}
-/>
-      <Main/>
-      <Navigation/>
-      <div>
-      </div>
-    </div>
-  )
+    return (
+        <div className="flex flex-col min-h-screen">
+            <div className="flex-grow">
+                {!userState.token ? (
+                    <SignIn /> // Show SignIn if not authenticated
+                ) : (
+                    <Main /> // Show the main app content if the user is authenticated
+                )}
+            </div>
+            <div className="fixed bottom-0 left-0 right-0 z-50">
+                <Navigation />
+            </div>
+        </div>
+    );
 }
 
-export default App
+export default App;

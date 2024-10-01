@@ -1,55 +1,21 @@
+import { useState, useEffect } from 'react';
+import { fetchWithAuth } from '../components/services/Auth'; // Import fetchWithAuth
+import { useUser } from '../components/UserContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Card, Dropdown, DropdownMenu, Button, Modal, DropdownToggle, DropdownItem, Accordion, CardHeader} from 'react-bootstrap';
-import { useUser } from '../../Context/userContext';
-import { useAccordionButton } from 'react-bootstrap/AccordionButton';
-
-
-export default function MessageInput({ onSendMessage, selectedFriend, friendshipId, messages, users, sender }) {
-  const [message, setMessage] = useState([]);
-  const [allUsers, setAllUsers] = useState('');
-  const { userState: { user, token } } = useUser();
-  const [allMessagesForUser, setAllMessagesForUser] = useState([]);
+export default function MessageInput({ onSendMessage, selectedFriend, friendshipId }) {
+  const [message, setMessage] = useState('');
+  const { userState: { token } } = useUser();
   const [userMessages, setUserMessages] = useState([]);
-  const [isEditVisible, setEditVisibility] = useState(false);
-  const [messageId, setMessageId]= useState({})
-  const [messageContent, setMessageContent]= useState('')
-  const [messageSender, setMessageSender]= useState('')
-  const [messageReceiver, setMessageReceiver]= useState('')
+  const [messageId, setMessageId] = useState(null);
+  const [messageContent, setMessageContent] = useState('');
   const [showEditModal, setShowEditModal] = useState(false);
-
-
-  function CustomToggle({ children, eventKey, messageId, setMessageId, messageContent, setMessageContent }) {
-
-    const decoratedOnClick = useAccordionButton(eventKey, () => {
-      if (isEditVisible === false) {
-        setEditVisibility(true);
-        setMessageId(messageId); // Set the messageId when the button is clicked
-      } else {
-        setEditVisibility(false);
-        setMessageId({}); // Clear the messageId when the button is clicked again
-      }
-    });
-  
-    return (
-      <Button id='message-dropdown-btn' type="button" onClick={decoratedOnClick}>
-        {children}
-      </Button>
-    );
-  }
 
   const fetchUserMessages = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/messages/?friend=${selectedFriend.receiverUsername}`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-
+      const response = await fetchWithAuth(`http://localhost:8000/messages/?friend=${selectedFriend.receiverUsername}`);
       setUserMessages(response.data);
-      console.log(response)
-      console.log(userMessages)
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
@@ -58,7 +24,6 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
   useEffect(() => {
     if (selectedFriend) {
       fetchUserMessages();
-      console.log(selectedFriend);
     }
   }, [selectedFriend, token]);
 
@@ -67,69 +32,56 @@ export default function MessageInput({ onSendMessage, selectedFriend, friendship
   };
 
   const handleSendMessage = async () => {
-    console.log(selectedFriend)
- console.log(user)
-      const response = await axios.post(
-        'http://localhost:8000/messages/',
-        {
-          sender: sender,
+    try {
+      await fetchWithAuth('http://localhost:8000/messages/', {
+        method: 'POST',
+        body: JSON.stringify({
+          sender: token.user,  // Adjust this if necessary
           receiver: selectedFriend.receiver,
           content: message,
-        },
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
-      console.log(response)
-      console.log(message)
+        }),
+      });
       setMessage('');
-      fetchUserMessages()      
+      fetchUserMessages();
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
 
-
-
-
-  // DELETE MESSAGE
-const handleDeleteMessage = async () => {
-
-  const response = await axios.delete(
-     `http://localhost:8000/message/${messageId}/`, 
-     {
-       headers: {
-         Authorization: `Token ${token}`,
-       },
-     }
-  );
-  // setMessage('');
-  setMessageId({});
-  setMessageContent('');
-  fetchUserMessages()
- };
-
- const handleEditMessage = async () => {
-    const response = await axios.put(
-      `http://localhost:8000/message/${messageId}/`,
-      {
-        user1: sender,
-        user2: selectedFriend.receiver,
-        content: messageContent,
-      },
-      {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      }
-    );
-    console.log(message)
-    setMessageId(null);
-    setMessageContent('');
-    fetchUserMessages();
-    handleCloseEditModal();
+  const handleDeleteMessage = async () => {
+    try {
+      await fetchWithAuth(`http://localhost:8000/message/${messageId}/`, {
+        method: 'DELETE',
+      });
+      setMessageId(null);
+      fetchUserMessages();
+    } catch (error) {
+      console.error('Error deleting message:', error);
+    }
   };
 
-  const changeMessage = () => {
+  const handleEditMessage = async () => {
+    try {
+      await fetchWithAuth(`http://localhost:8000/message/${messageId}/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          user1: token.user,  // Adjust this if necessary
+          user2: selectedFriend.receiver,
+          content: messageContent,
+        }),
+      });
+      setMessageId(null);
+      setMessageContent('');
+      fetchUserMessages();
+      handleCloseEditModal();
+    } catch (error) {
+      console.error('Error editing message:', error);
+    }
+  };
+
+  const changeMessage = (msgId, content) => {
+    setMessageId(msgId);
+    setMessageContent(content);
     setShowEditModal(true);
   };
 
@@ -137,82 +89,77 @@ const handleDeleteMessage = async () => {
     setShowEditModal(false);
   };
 
-
-console.log(selectedFriend)
-console.log(sender)
   return (
-    <div className='message-input'>
-        <h2 id='selected-user-name'>{selectedFriend.receiverUsername}</h2>
-      <div className='message-display-window'>
-           {messages &&
-            userMessages.map((message) => (
-              <div key={message.id}>
-                <div>
-                  <Accordion defaultActiveKey='0'>
-                    <Card id='message-card'>
-                      <li id='text-messages'>
-                        <CustomToggle
-                          // className={message.user2_username === selectedFriend.receiverUsername ? 'whiteBackground' : 'blueBackground' }
-                          data-id="{{ message.id }}"
-                          eventKey='0'
-                          messageId={message.id}
-                          setMessageId={setMessageId}
-                          messageContent={message.content}
-                          setMessageContent={setMessageContent}
-                          messageSender={message.user1}
-                          setMessageSender = {messageSender}
-                          messageReceiver={message.user2}
-                          setMessageReceiver = {messageReceiver}
-                          className={message.user1 !== sender ? 'whiteBackground' : ''}
-                        >
-                          {message.content}
-                        </CustomToggle>
-                      </li>
-                      <Accordion.Collapse eventKey='0'>
-                        <Card.Body id='edit-dropdown' style={{ display: isEditVisible ? 'block' : 'none' }}>
-                          <Button id="edit-btn" onClick={changeMessage}>Edit</Button>
-                          <Button id="delete-btn" onClick={handleDeleteMessage}>Delete</Button>
-                        </Card.Body>
-                      </Accordion.Collapse>
-                    </Card>
-                  </Accordion>
-                </div>
-              </div>
-            ))}
-
+    <div className="p-4 bg-white rounded shadow-md">
+      <h2 className="text-xl font-bold mb-4">{selectedFriend.receiverUsername}</h2>
+      <div className="message-display-window mb-4">
+        {userMessages.map((msg) => (
+          <div key={msg.id} className="border-b py-2 flex justify-between items-center">
+            <div className="flex-1">
+              <p className="text-gray-700">{msg.content}</p>
+            </div>
+            <div className="flex space-x-2">
+              <button 
+                className="text-blue-500 hover:text-blue-700"
+                onClick={() => changeMessage(msg.id, msg.content)}
+              >
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+              <button 
+                className="text-red-500 hover:text-red-700"
+                onClick={() => {
+                  setMessageId(msg.id);
+                  handleDeleteMessage();
+                }}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
-      <div className='text-send'>
+      <div className="flex items-center">
         <textarea
-          id='message-input'
+          className="border rounded p-2 flex-1 mr-2"
           value={message}
           onChange={handleInputChange}
-          placeholder='Type your message...'
+          placeholder="Type your message..."
         />
-        <button onClick={handleSendMessage} id='message-send-btn'>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={handleSendMessage}
+        >
           Send
         </button>
       </div>
 
-      <Modal show={showEditModal} onHide={handleCloseEditModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Message</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <textarea
-            value={messageContent}
-            onChange={(e) => setMessageContent(e.target.value)}
-            placeholder='Edit your message...'
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleCloseEditModal}>
-            Close
-          </Button>
-          <Button variant='primary' onClick={handleEditMessage}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {showEditModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded shadow-md">
+            <h3 className="text-lg font-bold">Edit Message</h3>
+            <textarea
+              className="border rounded p-2 w-full"
+              value={messageContent}
+              onChange={(e) => setMessageContent(e.target.value)}
+              placeholder="Edit your message..."
+            />
+            <div className="flex justify-end mt-4">
+              <button 
+                className="mr-2 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                onClick={handleCloseEditModal}
+              >
+                Close
+              </button>
+              <button 
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                onClick={handleEditMessage}
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

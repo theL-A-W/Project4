@@ -1,108 +1,105 @@
 import { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDeleteLeft, faAdd } from '@fortawesome/free-solid-svg-icons'
-import { useUser } from '../../Context/userContext';
+import { fetchWithAuth } from '../components/services/Auth'; // Import fetchWithAuth
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { useUser } from './UserContext';
 
-export default function FindFriends (){
-    const [showFriends, setShowFriends] = useState();
-    const [users, setUsers] = useState([])
-    const [friends, setFriends] = useState([]); // Initialize friends state
-    const { userState: { user, token } } = useUser();
-    const handleCloseFriends = () => setShowFriends(false)
+export default function FindFriends() {
+  const [showFriends, setShowFriends] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [friends, setFriends] = useState([]); // Initialize friends state
+  const { userState: { user, token } } = useUser();
 
-    const fetchUsers = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/api/list-users/');
-            setUsers(response.data.users);
-            console.log(response.data.users);
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
+  const handleCloseFriends = () => setShowFriends(false);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetchWithAuth('http://localhost:8000/api/list-users/');
+      setUsers(response.data.users);
+      console.log(response.data.users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch friends data when the component mounts
+    const fetchFriends = async () => {
+      try {
+        const response = await fetchWithAuth('http://localhost:8000/friendship/');
+        setFriends(response.data);
+      } catch (error) {
+        console.error('Error fetching friends:', error);
+      }
     };
 
-    useEffect(() => {
-        // Fetch friends data when the component mounts
-        const fetchFriends = async () => {
-          try {
-            const response = await axios.get('http://localhost:8000/friendship/', {
-              headers: {
-                Authorization: `Token ${token}`,
-              },
-            });
-            setFriends(response.data);
-          } catch (error) {
-            console.error('Error fetching friends:', error);
-          }
-        };
-    
-        fetchFriends();
-      }, [token]);
-    
-      
+    fetchFriends();
+  }, [token]);
 
-    const handleShowFriends = () => {
-        fetchUsers();
-        setShowFriends(true);
-    };
+  const handleShowFriends = () => {
+    fetchUsers();
+    setShowFriends(true);
+  };
 
+  const handleAddFriend = async (friendId) => {
+    try {
+      const response = await fetchWithAuth('http://localhost:8000/friendship/', {
+        method: 'POST',
+        body: JSON.stringify({
+          user1: user,
+          user2: friendId,
+        }),
+      });
 
-    const handleAddFriend = async (friendId) => {
-        try {
-          const response = await axios.post(
-            'http://localhost:8000/friendship/',
-            {
-              user1: user,
-              user2: friendId, 
-            },
-            {
-              headers: {
-                Authorization: `Token ${token}`,
-              },
-            }
-          );
-      
-          // Handle the response or update your state accordingly
-          console.log('Friendship added:', response.data);
-        } catch (error) {
-          console.error('Error adding friendship:', error);
-        }
-      };
+      // Handle the response or update your state accordingly
+      console.log('Friendship added:', response.data);
+    } catch (error) {
+      console.error('Error adding friendship:', error);
+    }
+  };
 
-    return(
-        <div>
-          <Button variant="link" id="find-friends-btn" onClick={handleShowFriends}>Find Friends</Button>
-          <Offcanvas className="friends-offcanvas" style={{ width: '100%' }} show={showFriends} onHide={handleCloseFriends}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title id="friends-list-title">Find User:</Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Header className="search-friends">
-                    {/* FRIEND SEARCH */}
-                    <input placeholder="search friends" id="search-friends"></input>
-                    <button>Search</button>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    <ul className="list-of-friends">
-                        {users.map(user => (
-                            <li key={user.username} className="friend-item">
-                                {user.username}
-                                <button id="add-friend" onClick={() => handleAddFriend(user.username)}>
-                                    {/* <FontAwesomeIcon icon={faAdd} size="lg" style={{ color: "white" }} /> */}
-                                    <p id="add-icon"><strong>+</strong></p>
-                                </button>
-                                {/* <button id="delete-friend" onClick={() => handleDeleteFriend(user.id)}>
-                                    <FontAwesomeIcon icon={faDeleteLeft} size="lg" style={{ color: "#bb111a" }} />
-                                </button> */}
-                            </li>
-                        ))}
-                    </ul>
-                </Offcanvas.Body>
-            </Offcanvas>
+  return (
+    <div>
+      <button 
+        className='text-blue-500 hover:underline' 
+        id="find-friends-btn" 
+        onClick={handleShowFriends}
+      >
+        Find Friends
+      </button>
+      {showFriends && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-4">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-bold" id="friends-list-title">Find User:</h2>
+              <button onClick={handleCloseFriends} className="text-gray-500">
+                &times;
+              </button>
+            </div>
+            <div className="flex items-center mt-4 mb-2">
+              <input 
+                placeholder="Search friends" 
+                id="search-friends" 
+                className="border border-gray-300 rounded-l-lg p-2 flex-grow"
+              />
+              <button className="bg-blue-500 text-white rounded-r-lg px-4">Search</button>
+            </div>
+            <ul className="list-disc list-inside">
+              {users.map(user => (
+                <li key={user.username} className="flex justify-between items-center mb-2">
+                  <span>{user.username}</span>
+                  <button 
+                    className="bg-green-500 text-white rounded-full p-2" 
+                    onClick={() => handleAddFriend(user.username)}
+                  >
+                    <FontAwesomeIcon icon={faAdd} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-    )
+      )}
+    </div>
+  );
 }
-
-  
-  
